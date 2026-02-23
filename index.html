@@ -3,53 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adgile Gaming — Indie Game Studio</title>
-  <meta name="description" content="Adgile Gaming is an indie game studio based in Nashville, TN. Creator of Arachno Arena — a deck-building living card game for mobile and Steam." />
+  <title>Aaron Goeglein — Producer. Developer. Founder.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <!-- 
+    Font strategy:
+    "AARON"    → Barlow Condensed 600 (sharp, geometric, techy — dialed back from 800)
+    "Goeglein" → Playfair Display Italic 600 (sharp serifs, elegant, not bubbly — middle ground)
+    Body/UI    → DM Sans + DM Mono
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ── TOKENS — pulled from logo ── */
+    /* ── TOKENS ── */
     :root {
-      --navy:      #0B1629;
-      --navy-mid:  #0F1E38;
-      --navy-lite: #162440;
-      --cyan:      #00C8E0;
-      --cyan-dim:  #0099AD;
-      --blue:      #0066CC;
-      --blue-lite: #1A80E0;
-      --ink:       #E8F0F8;
-      --mid:       #7A9BBF;
-      --faint:     #3A5070;
-      --rule:      rgba(0, 200, 224, 0.12);
-      --glow:      rgba(0, 200, 224, 0.18);
-      --glow-hard: rgba(0, 200, 224, 0.35);
-      --display:   'Outfit', system-ui, sans-serif;
-      --body:      'Source Sans 3', system-ui, sans-serif;
-      --mono:      'Outfit', monospace;
-      --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+      --bg:       #F4F1EB;
+      --ink:      #18150F;
+      --mid:      #6B6258;
+      --faint:    #A09890;
+      --rule:     #DDD8CE;
+      --accent:   #BF4A18;
+      --accent2:  #1E4D7A;
+      --card:     #EBE7DF;
+      --white:    #FAF9F6;
+      --tech:     'Barlow Condensed', 'Arial Narrow', sans-serif;
+      --serif:    'Playfair Display', 'Palatino Linotype', serif;
+      --mono:     'DM Mono', 'Courier New', monospace;
+      --sans:     'DM Sans', system-ui, sans-serif;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--navy);
+      background: var(--bg);
       color: var(--ink);
-      font-family: var(--body);
+      font-family: var(--sans);
       font-size: 17px;
-      line-height: 1.65;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* Subtle noise grain */
-    body::after {
+    body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 999;
+      z-index: 1000;
+      opacity: 0.6;
     }
 
     /* ── NAV ── */
@@ -60,652 +62,621 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 3rem;
-      background: rgba(11, 22, 41, 0.92);
-      backdrop-filter: blur(16px);
+      padding: 1.1rem 3rem;
+      background: rgba(244, 241, 235, 0.9);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--rule);
     }
 
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
       text-decoration: none;
-    }
-
-    .nav-logo-img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 6px var(--cyan));
-    }
-
-    .nav-brand-text {
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 1.05rem;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-    .nav-brand-text span { color: var(--cyan); }
-
-    .nav-links {
       display: flex;
       align-items: center;
-      gap: 2.5rem;
-      list-style: none;
+      gap: 0.6rem;
     }
+    .nav-logo .nl-first {
+      font-family: var(--tech);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+    .nav-logo .nl-sep { color: var(--rule); }
+    .nav-logo .nl-last {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a {
-      font-family: var(--display);
-      font-size: 0.85rem;
-      font-weight: 400;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       text-decoration: none;
       color: var(--mid);
-      letter-spacing: 0.01em;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover { color: var(--accent); }
 
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1.25rem;
-      background: transparent;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
-      font-family: var(--display);
-      font-size: 0.82rem;
-      font-weight: 500;
+    .nav-resume {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
       text-decoration: none;
-      letter-spacing: 0.02em;
-      transition: all 0.25s var(--ease);
+      border: 1px solid var(--accent);
+      padding: 0.4rem 0.9rem;
+      transition: all 0.2s;
     }
-    .nav-cta:hover {
-      background: var(--cyan);
-      color: var(--navy);
-    }
+    .nav-resume:hover { background: var(--accent); color: var(--white); }
 
     /* ── HERO ── */
     .hero {
       min-height: 100svh;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      grid-template-rows: 1fr;
+      padding-top: 4rem;
+      align-items: stretch;
+    }
+
+    .hero-left {
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 7rem 2rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Deep radial bg gradient */
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -20%; left: 50%;
-      transform: translateX(-50%);
-      width: 900px; height: 900px;
-      background: radial-gradient(ellipse, rgba(0,102,204,0.15) 0%, rgba(0,200,224,0.05) 40%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Circuit grid lines */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,200,224,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,200,224,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-
-    /* Fade grid at edges */
-    .hero-grid::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, transparent 30%, var(--navy) 80%);
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Logo with glow pulse */
-    .hero-logo-wrap {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 1s var(--ease) 0.1s forwards;
-    }
-
-    .hero-logo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -20px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(0,200,224,0.2) 0%, transparent 70%);
-      animation: glowPulse 3s ease-in-out infinite;
-    }
-
-    .hero-logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 0 20px rgba(0,200,224,0.5));
-    }
-
-    @keyframes glowPulse {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50%       { opacity: 1;   transform: scale(1.08); }
+      padding: 6rem 3.5rem 6rem 3rem;
     }
 
     .hero-eyebrow {
-      font-family: var(--display);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
       opacity: 0;
-      animation: fadeUp 0.8s var(--ease) 0.3s forwards;
+      animation: fadeUp 0.7s var(--ease) 0.1s forwards;
     }
-    .eyebrow-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--cyan);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:0.4; transform:scale(0.6); }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--accent);
     }
 
-    .hero-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      letter-spacing: -0.03em;
-      line-height: 1.0;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
+    /* ── SPLIT-FONT NAME ── */
+    .hero-name {
+      margin-bottom: 2.25rem;
       opacity: 0;
-      animation: fadeUp 0.9s var(--ease) 0.45s forwards;
+      animation: fadeUp 0.85s var(--ease) 0.25s forwards;
+      line-height: 1;
     }
-    .hero-title .cyan { color: var(--cyan); }
 
-    .hero-tagline {
-      font-family: var(--display);
-      font-weight: 300;
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      color: var(--mid);
+    .name-first {
+      display: block;
+      font-family: var(--tech);
+      font-weight: 600;
+      font-size: clamp(4rem, 8vw, 7.5rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 0.9;
+      transition: letter-spacing 0.5s var(--ease);
+    }
+
+    .name-last {
+      display: block;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(3.2rem, 6.5vw, 6.2rem);
       letter-spacing: 0.01em;
+      color: var(--accent2);
+      line-height: 1.0;
+      margin-top: -0.05em;
+    }
+
+    .hero-name:hover .name-first { letter-spacing: 0.08em; }
+
+    .hero-credential {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--white);
+      padding: 0.3rem 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       margin-bottom: 2rem;
       opacity: 0;
-      animation: fadeUp 0.9s var(--ease) 0.58s forwards;
+      animation: fadeUp 0.85s var(--ease) 0.38s forwards;
     }
+    .hero-credential .emmy { color: #D4AF37; }
 
-    .hero-desc {
-      max-width: 50ch;
-      font-size: 1rem;
-      color: rgba(232,240,248,0.65);
-      line-height: 1.75;
-      margin-bottom: 2.75rem;
-      opacity: 0;
-      animation: fadeUp 0.9s var(--ease) 0.7s forwards;
-    }
-
-    .hero-actions {
+    .hero-roles {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
+      flex-direction: column;
+      margin-bottom: 2.25rem;
+      opacity: 0;
+      animation: fadeUp 0.85s var(--ease) 0.48s forwards;
+    }
+
+    .role-item {
+      display: grid;
+      grid-template-columns: 8px 1fr auto;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.92rem;
+    }
+    .role-item:first-child { border-top: 1px solid var(--rule); }
+    .role-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .role-meta { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); letter-spacing: 0.08em; white-space: nowrap; }
+
+    .hero-bio {
+      font-size: 0.97rem;
+      color: var(--mid);
+      max-width: 46ch;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeUp 0.85s var(--ease) 0.58s forwards;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 0.85rem;
       flex-wrap: wrap;
       opacity: 0;
-      animation: fadeUp 0.9s var(--ease) 0.82s forwards;
+      animation: fadeUp 0.85s var(--ease) 0.68s forwards;
     }
 
     /* ── BUTTONS ── */
-    .btn-primary {
+    .btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      background: var(--cyan);
-      color: var(--navy);
-      font-family: var(--display);
-      font-size: 0.9rem;
-      font-weight: 600;
+      padding: 0.7rem 1.6rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       text-decoration: none;
-      letter-spacing: 0.01em;
-      border: 1px solid var(--cyan);
-      transition: all 0.25s var(--ease);
-    }
-    .btn-primary:hover {
-      background: #00E8FF;
-      border-color: #00E8FF;
-      box-shadow: 0 0 24px rgba(0,200,224,0.4);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      background: transparent;
-      color: var(--mid);
-      font-family: var(--display);
-      font-size: 0.9rem;
-      font-weight: 400;
-      text-decoration: none;
-      letter-spacing: 0.01em;
-      border: 1px solid var(--faint);
-      transition: all 0.25s var(--ease);
-    }
-    .btn-secondary:hover {
-      border-color: var(--mid);
+      border: 1.5px solid var(--ink);
       color: var(--ink);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
     }
+    .btn:hover { background: var(--ink); color: var(--bg); }
+    .btn-accent { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .btn-accent:hover { background: #a33d12; border-color: #a33d12; color: var(--white); }
+    .btn-outline-mid { border-color: var(--rule); color: var(--mid); }
+    .btn-outline-mid:hover { border-color: var(--mid); background: transparent; color: var(--ink); }
 
-    /* Scroll hint */
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
+    /* ── HERO RIGHT (cinematic panel) ── */
+    .hero-right {
+      position: relative;
+      background: var(--ink);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      opacity: 0;
-      animation: fadeUp 1s var(--ease) 1.4s forwards;
-    }
-    .scroll-hint-line {
-      width: 1px;
-      height: 36px;
-      background: linear-gradient(to bottom, var(--cyan), transparent);
-      animation: scrollDrop 2s ease-in-out infinite;
-    }
-    .scroll-hint-label {
-      font-family: var(--display);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--faint);
-    }
-    @keyframes scrollDrop {
-      0%,100% { opacity:0.4; transform:scaleY(1); }
-      50%      { opacity:1;   transform:scaleY(0.5); }
+      justify-content: flex-end;
+      min-height: 100%;
     }
 
-    /* ── SECTION STRUCTURE ── */
-    .section {
-      padding: 7rem 3rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .section-full {
-      padding: 7rem 3rem;
-    }
-
-    .s-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--display);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 1.25rem;
-    }
-    .s-label::before {
+    /* Solid dark base — renders before filmstrip grid loads */
+    .hero-right::before {
       content: '';
-      width: 20px; height: 1px;
-      background: var(--cyan);
+      position: absolute;
+      inset: 0;
+      background: #18150F;
+      z-index: 0;
     }
+
+    .filmstrip-bg {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      z-index: 1;
+    }
+    .filmstrip-bg div { background: #18150F; }
+    .filmstrip-bg div:nth-child(odd) { background: #1A1714; }
+
+    .perf-strip {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 20px;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      z-index: 6;
+    }
+    .perf {
+      width: 10px; height: 8px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .scanline {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: scan 6s ease-in-out infinite;
+      opacity: 0.35;
+      z-index: 15;
+    }
+    @keyframes scan {
+      0%   { top: 0%; opacity: 0; }
+      5%   { opacity: 0.35; }
+      95%  { opacity: 0.35; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .hero-card-overlay {
+      position: absolute;
+      top: 2.5rem;
+      right: 2rem;
+      left: 2rem;
+      z-index: 10;
+      background: rgba(244,241,235,0.055);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .cred-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .cred-row:first-child { padding-top: 0; }
+    .cred-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .cred-co {
+      font-family: var(--tech);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.88);
+    }
+    .cred-role-text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.38);
+      margin-top: 0.1rem;
+    }
+    .cred-yr {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── AWARDS STRIP ── */
+    .awards-strip {
+      background: var(--ink);
+      color: var(--white);
+      padding: 2.75rem 3rem;
+    }
+    .awards-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .award-item { display: flex; align-items: center; gap: 1rem; }
+    .award-icon { font-size: 1.6rem; }
+    .award-title {
+      font-family: var(--tech);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .award-detail {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .award-div { width: 1px; height: 36px; background: rgba(255,255,255,0.1); }
+
+    /* ── SECTION LABELS / TITLES ── */
+    .s-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .s-label::after { content: ''; width: 48px; height: 1px; background: var(--rule); }
 
     .s-title {
-      font-family: var(--display);
+      font-family: var(--tech);
       font-weight: 700;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      letter-spacing: -0.025em;
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 1rem;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
     }
-
-    .s-body {
-      font-size: 1rem;
-      color: rgba(232,240,248,0.6);
-      line-height: 1.8;
-      max-width: 60ch;
-    }
-
-    /* ── FLAGSHIP GAME SECTION ── */
-    .game-section {
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      background: var(--navy-mid);
-    }
-
-    .game-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 7rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .game-logo-block {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .game-logo-container {
-      position: relative;
-      width: clamp(240px, 40vw, 340px);
-      aspect-ratio: 1;
-    }
-
-    /* Corner brackets around logo */
-    .game-logo-container::before,
-    .game-logo-container::after {
-      content: '';
-      position: absolute;
-      width: 24px; height: 24px;
-      border-color: var(--cyan);
-      border-style: solid;
-      opacity: 0.5;
-    }
-    .game-logo-container::before {
-      top: -8px; left: -8px;
-      border-width: 1px 0 0 1px;
-    }
-    .game-logo-container::after {
-      bottom: -8px; right: -8px;
-      border-width: 0 1px 1px 0;
-    }
-
-    .game-logo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 0 30px rgba(0,200,224,0.4));
-      transition: filter 0.4s var(--ease);
-    }
-    .game-logo-container:hover img {
-      filter: drop-shadow(0 0 50px rgba(0,200,224,0.65));
-    }
-
-    /* Corner brackets - additional pseudo using span */
-    .bracket-tr, .bracket-bl {
-      position: absolute;
-      width: 24px; height: 24px;
-      border-color: var(--cyan);
-      border-style: solid;
-      opacity: 0.5;
-    }
-    .bracket-tr { top: -8px; right: -8px; border-width: 1px 1px 0 0; }
-    .bracket-bl { bottom: -8px; left: -8px; border-width: 0 0 1px 1px; }
-
-    .game-info { }
-
-    .game-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: -0.03em;
-      line-height: 1.0;
-      color: var(--ink);
-      margin-bottom: 0.35rem;
-    }
-    .game-title .cyan { color: var(--cyan); }
-
-    .game-subtitle {
-      font-family: var(--display);
+    .s-title em {
+      font-family: var(--serif);
+      font-style: italic;
       font-weight: 300;
-      font-size: 0.95rem;
-      color: var(--mid);
+      text-transform: none;
       letter-spacing: 0.01em;
-      margin-bottom: 1.75rem;
+      color: var(--accent2);
+      font-size: 0.92em;
     }
 
-    .game-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.75rem;
-    }
-    .tag {
-      padding: 0.25rem 0.75rem;
-      border: 1px solid var(--faint);
-      font-family: var(--display);
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: var(--mid);
-    }
-    .tag-cyan {
-      border-color: rgba(0,200,224,0.35);
-      color: var(--cyan);
-    }
+    /* ── REEL ── */
+    .reel-section { background: var(--ink); color: var(--white); padding: 7rem 3rem; }
+    .reel-inner { max-width: 1200px; margin: 0 auto; }
+    .reel-section .s-label { color: var(--accent); }
+    .reel-section .s-label::after { background: rgba(255,255,255,0.1); }
 
-    .game-desc {
-      font-size: 0.97rem;
-      color: rgba(232,240,248,0.6);
-      line-height: 1.8;
-      margin-bottom: 2rem;
-    }
-
-    .game-status {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--display);
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--cyan);
-      margin-bottom: 2rem;
-    }
-    .status-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    /* ── MEDIA / CAROUSEL PLACEHOLDER ── */
-    .media-section {
-      background: var(--navy-lite);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .media-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 7rem 3rem;
-    }
-
-    .carousel-placeholder {
+    .video-embed-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #080808;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
       margin-top: 3rem;
-      border: 1px dashed var(--faint);
-      padding: 4rem 3rem;
+    }
+    .video-embed-wrapper iframe,
+    .video-embed-wrapper video { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      text-align: center;
-      position: relative;
+      color: rgba(255,255,255,0.2);
     }
-
-    /* Corner accents on placeholder */
-    .carousel-placeholder::before,
-    .carousel-placeholder::after {
-      content: '';
-      position: absolute;
-      width: 16px; height: 16px;
-      border-color: var(--cyan);
-      border-style: solid;
-      opacity: 0.4;
-    }
-    .carousel-placeholder::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-    .carousel-placeholder::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-
-    .placeholder-icon {
-      font-size: 2.5rem;
-      opacity: 0.3;
-    }
-    .placeholder-title {
-      font-family: var(--display);
-      font-weight: 500;
-      font-size: 1rem;
-      color: var(--mid);
-    }
-    .placeholder-note {
-      font-family: var(--display);
-      font-size: 0.78rem;
-      color: var(--faint);
-      max-width: 42ch;
-      line-height: 1.6;
-    }
-    .placeholder-badge {
-      display: inline-flex;
+    .play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      display: flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.75rem;
-      border: 1px solid var(--faint);
-      font-family: var(--display);
-      font-size: 0.68rem;
-      font-weight: 500;
+      justify-content: center;
+      font-size: 1.4rem;
+      padding-left: 4px;
+    }
+    .video-note {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.15);
+      text-align: center;
+      margin-top: 1.25rem;
+    }
+    .reel-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .reel-links a {
+      font-family: var(--mono);
+      font-size: 0.67rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--faint);
-      margin-top: 0.5rem;
+      text-decoration: none;
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.38);
+      transition: all 0.2s;
     }
+    .reel-links a:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
 
-    /* ── ABOUT / MISSION ── */
-    .about-section {
-      background: var(--navy);
-    }
+    /* ── EXPERIENCE ── */
+    .experience-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
 
-    .about-grid {
+    .exp-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      margin-top: 3.5rem;
-      align-items: start;
-    }
-
-    .about-card {
-      padding: 2.5rem;
+      grid-template-columns: 260px 1fr;
+      gap: 1px;
+      background: var(--rule);
       border: 1px solid var(--rule);
-      background: var(--navy-mid);
-      position: relative;
-      transition: border-color 0.3s;
+      margin-top: 3.5rem;
     }
-    .about-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 2px;
-      background: linear-gradient(90deg, var(--cyan), transparent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s var(--ease);
-    }
-    .about-card:hover { border-color: rgba(0,200,224,0.25); }
-    .about-card:hover::before { transform: scaleX(1); }
 
-    .about-card-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1.25rem;
-      display: block;
+    .exp-sidebar {
+      background: var(--card);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
     }
-    .about-card-title {
-      font-family: var(--display);
+
+    .exp-nav-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+    }
+    .exp-nav-item:first-child { border-top: 1px solid var(--rule); }
+    .exp-nav-company {
+      font-family: var(--tech);
       font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--ink);
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.01em;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: color 0.2s;
     }
-    .about-card-body {
+    .exp-nav-years {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--faint);
+      letter-spacing: 0.06em;
+      margin-top: 0.15rem;
+    }
+    .exp-nav-bar {
+      height: 2px;
+      background: var(--accent);
+      width: 0;
+      margin-top: 0.5rem;
+      transition: width 0.3s var(--ease);
+    }
+    .exp-nav-item:hover .exp-nav-company,
+    .exp-nav-item.active .exp-nav-company { color: var(--accent); }
+    .exp-nav-item.active .exp-nav-bar,
+    .exp-nav-item:hover .exp-nav-bar { width: 28px; }
+
+    .exp-content { background: var(--bg); }
+    .exp-panel { padding: 2.5rem; display: none; }
+    .exp-panel.active { display: block; }
+
+    .exp-role {
+      font-family: var(--tech);
+      font-weight: 700;
+      font-size: 1.45rem;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+    .exp-company-full {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.1rem;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+    .exp-meta {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--faint);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .exp-bullets li {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 0.6rem;
       font-size: 0.93rem;
-      color: rgba(232,240,248,0.55);
-      line-height: 1.8;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+    .exp-bullets li::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.78rem;
+      margin-top: 0.2rem;
     }
 
-    /* Stats row */
-    .stats-row {
+    /* ── SKILLS ── */
+    .skills-section { background: var(--card); padding: 7rem 3rem; }
+    .skills-inner { max-width: 1200px; margin: 0 auto; }
+
+    .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--rule);
       border: 1px solid var(--rule);
-      margin-top: 4rem;
+      margin-top: 3.5rem;
     }
-    .stat-cell {
-      background: var(--navy-mid);
-      padding: 2.5rem 2rem;
-      text-align: center;
-    }
-    .stat-num {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 2.8rem;
-      letter-spacing: -0.04em;
-      color: var(--cyan);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    .stat-label {
-      font-family: var(--display);
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
+    .skill-col { background: var(--bg); padding: 2.5rem; }
+    .skill-col-label {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .skill-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
       color: var(--mid);
     }
+    .skill-item::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── WORK ── */
+    .work-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+      transition: padding-left 0.25s var(--ease);
+    }
+    .work-item:first-child { border-top: 1px solid var(--rule); margin-top: 3.5rem; }
+    .work-item:hover { padding-left: 0.5rem; }
+    .work-item:hover .work-title { color: var(--accent); }
+
+    .work-tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.4rem; }
+    .work-title { font-family: var(--tech); font-weight: 700; font-size: 1.55rem; letter-spacing: -0.01em; text-transform: uppercase; margin-bottom: 0.35rem; transition: color 0.25s; }
+    .work-subtitle { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 0.93rem; color: var(--accent2); margin-bottom: 0.55rem; }
+    .work-desc { font-size: 0.9rem; color: var(--mid); max-width: 58ch; line-height: 1.65; }
+    .work-year { font-family: var(--mono); font-size: 0.65rem; color: var(--faint); white-space: nowrap; padding-top: 0.3rem; letter-spacing: 0.06em; }
 
     /* ── CONTACT ── */
-    .contact-section {
-      background: var(--navy-mid);
-      border-top: 1px solid var(--rule);
-    }
+    .contact-section { background: var(--card); padding: 7rem 3rem; }
+    .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
 
-    .contact-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 7rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .contact-method {
+    .contact-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -716,135 +687,59 @@
       font-size: 0.93rem;
       transition: all 0.2s;
     }
-    .contact-method:first-of-type { border-top: 1px solid var(--rule); margin-top: 2rem; }
-    .contact-method:hover { color: var(--cyan); padding-left: 0.5rem; }
-    .contact-method .method-type {
-      font-family: var(--display);
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--faint);
-    }
+    .contact-link:first-of-type { border-top: 1px solid var(--rule); margin-top: 2.25rem; }
+    .contact-link:hover { color: var(--accent); padding-left: 0.5rem; }
+    .contact-link span { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); letter-spacing: 0.08em; }
 
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .cf-field { display: flex; flex-direction: column; gap: 0.4rem; }
-    .cf-label {
-      font-family: var(--display);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .cf-input, .cf-textarea {
-      background: var(--navy);
-      border: 1px solid var(--faint);
-      padding: 0.75rem 1rem;
-      font-family: var(--body);
-      font-size: 0.93rem;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.2s;
-      resize: vertical;
-    }
-    .cf-input:focus, .cf-textarea:focus { border-color: var(--cyan); }
-    .cf-textarea { min-height: 120px; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.25rem; }
+    .ff { display: flex; flex-direction: column; gap: 0.35rem; }
+    .ff label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); }
+    .ff input, .ff textarea { background: var(--bg); border: 1px solid var(--rule); padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.93rem; color: var(--ink); outline: none; transition: border-color 0.2s; resize: vertical; }
+    .ff input:focus, .ff textarea:focus { border-color: var(--accent); }
+    .ff textarea { min-height: 120px; }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--navy);
-      border-top: 1px solid var(--rule);
       padding: 2rem 3rem;
+      border-top: 1px solid var(--rule);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 1rem;
-    }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .footer-logo {
-      width: 24px; height: 24px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 4px var(--cyan));
-      opacity: 0.8;
-    }
-    .footer-name {
-      font-family: var(--display);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--mid);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-    }
-    .footer-links a {
-      font-family: var(--display);
-      font-size: 0.78rem;
-      color: var(--faint);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--cyan); }
-
-    .footer-copy {
-      font-family: var(--display);
-      font-size: 0.72rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--faint);
     }
-
-    /* ── DIVIDER LINE ── */
-    .cyan-rule {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-      opacity: 0.2;
-    }
+    footer a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-    }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      .game-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
-      .game-logo-block { justify-content: center; }
-      .game-tags { justify-content: center; }
-      .game-status { justify-content: center; }
-      .game-inner .hero-actions { justify-content: center; }
-      .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .stats-row { grid-template-columns: 1fr; }
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .section { padding: 5rem 1.5rem; }
-      .game-inner, .media-inner, .contact-inner { padding: 5rem 1.5rem; }
-      footer { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
     }
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      .hero-logo-wrap { width: 150px; height: 150px; }
+      .hero-left { padding: 6.5rem 1.5rem 3rem; }
+      .reel-section, .skills-section, .contact-section { padding: 5rem 1.5rem; }
+      .experience-section, .work-section { padding: 5rem 1.5rem; }
+      .awards-strip { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -852,332 +747,493 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-brand" href="#">
-      <img class="nav-logo-img" src="Arachno_Arena_Logo_Square.png" alt="Adgile Gaming" />
-      <span class="nav-brand-text">Adgile <span>Gaming</span></span>
+    <a class="nav-logo" href="#">
+      <span class="nl-first">Aaron</span>
+      <span class="nl-sep">/</span>
+      <span class="nl-last">Goeglein</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#game">Arachno Arena</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#reel">Reel</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="nav-cta" href="https://arachnoarena.com" target="_blank">Visit Game Site ↗</a>
+    <a href="Aaron_Goeglein_Resume_2025.pdf" download class="nav-resume">↓ Resume</a>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-grid"></div>
+    <div class="hero-left">
+      <p class="hero-eyebrow">Nashville, TN &nbsp;·&nbsp; Open to Opportunities</p>
 
-    <div class="hero-inner">
-      <div class="hero-logo-wrap">
-        <img src="Arachno_Arena_Logo_Square.png" alt="Adgile Gaming — Arachno Arena" />
+      <div class="hero-name">
+        <span class="name-first">Aaron</span>
+        <span class="name-last">Goeglein</span>
       </div>
 
-      <div class="hero-eyebrow">
-        <div class="eyebrow-dot"></div>
-        Indie Game Studio · Nashville, TN
+      <div class="hero-credential">
+        <span class="emmy">★</span>
+        National Emmy Award Winner &nbsp;·&nbsp; Best Sports Remote Production
       </div>
 
-      <h1 class="hero-title">
-        Adgile <span class="cyan">Gaming</span>
-      </h1>
+      <div class="hero-roles">
+        <div class="role-item">
+          <div class="role-dot" style="background:var(--accent)"></div>
+          <span>Senior Video Producer &amp; Editor</span>
+          <span class="role-meta">Klaviyo, 2018–2025</span>
+        </div>
+        <div class="role-item">
+          <div class="role-dot" style="background:var(--accent2)"></div>
+          <span>Indie Game Developer &amp; Studio Founder</span>
+          <span class="role-meta">Adgile Gaming</span>
+        </div>
+        <div class="role-item">
+          <div class="role-dot" style="background:#7A6A5A"></div>
+          <span>AI Workflow Architect</span>
+          <span class="role-meta">Agentic Systems</span>
+        </div>
+        <div class="role-item">
+          <div class="role-dot" style="background:var(--ink)"></div>
+          <span>Broadcast Audio Engineer &nbsp;·&nbsp; NESN / FOX / ESPN</span>
+          <span class="role-meta">Live TV</span>
+        </div>
+      </div>
 
-      <p class="hero-tagline">Small studio. Sharp instincts. One flagship title.</p>
-
-      <p class="hero-desc">
-        Independent game development built on craft, creativity, and AI-powered workflows. Currently in active development on <strong style="color:var(--ink);font-weight:600;">Arachno Arena</strong> — a deck-building Living Card Game for mobile and Steam.
+      <p class="hero-bio">
+        National Emmy winner. 25+ years producing content for Klaviyo, NESN, FOX, ABC, and ESPN — from startup through IPO. Now running Adgile Gaming full-time and building games with the same storytelling instincts that made the footage work.
       </p>
 
-      <div class="hero-actions">
-        <a href="https://arachnoarena.com" class="btn-primary" target="_blank">
-          Visit Arachno Arena ↗
-        </a>
-        <a href="#about" class="btn-secondary">Learn More</a>
+      <div class="hero-cta">
+        <a href="#reel" class="btn btn-accent">Watch My Reel</a>
+        <a href="Aaron_Goeglein_Resume_2025.pdf" download class="btn">↓ Download Resume</a>
+        <a href="#contact" class="btn btn-outline-mid">Get in Touch</a>
       </div>
     </div>
 
-    <div class="scroll-hint">
-      <span class="scroll-hint-label">Scroll</span>
-      <div class="scroll-hint-line"></div>
-    </div>
-  </div>
-
-  <!-- FLAGSHIP GAME -->
-  <div class="game-section" id="game">
-    <div class="game-inner reveal">
-
-      <div class="game-logo-block">
-        <div class="game-logo-container">
-          <span class="bracket-tr"></span>
-          <span class="bracket-bl"></span>
-          <img src="Arachno_Arena_Logo_Square.png" alt="Arachno Arena" />
-        </div>
-      </div>
-
-      <div class="game-info">
-        <p class="s-label">Flagship Title</p>
-        <h2 class="game-title">Arachno<br><span class="cyan">Arena</span></h2>
-        <p class="game-subtitle">Deck-Building Living Card Game</p>
-
-        <div class="game-status">
-          <div class="status-dot"></div>
-          In Active Development
-        </div>
-
-        <div class="game-tags">
-          <span class="tag tag-cyan">Living Card Game</span>
-          <span class="tag">Deck Builder</span>
-          <span class="tag">Mobile + Steam</span>
-          <span class="tag">2D Strategy</span>
-          <span class="tag">Unity / C#</span>
-        </div>
-
-        <p class="game-desc">
-          Build your deck. Control the web. Outlast every opponent. Arachno Arena is a spider-themed deck-building strategy game designed from the ground up for mobile — with a Steam release on the horizon.
-        </p>
-        <p class="game-desc">
-          Every card interaction is built for depth. Every system is built for replayability. The meta evolves. The arena doesn't forgive.
-        </p>
-
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-          <a href="https://arachnoarena.com" class="btn-primary" target="_blank">Game Website ↗</a>
-          <a href="#contact" class="btn-secondary">Press Inquiries</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- MEDIA / CAROUSEL (placeholder, ready to activate) -->
-  <div class="media-section" id="media">
-    <div class="media-inner reveal">
-      <p class="s-label">Media</p>
-      <h2 class="s-title">Screenshots &amp; Trailers</h2>
-      <p class="s-body">Game art, screenshots, and video will live here as development progresses.</p>
-
-      <div class="carousel-placeholder">
-        <div class="placeholder-icon">🎮</div>
-        <p class="placeholder-title">Media Gallery — Coming Soon</p>
-        <p class="placeholder-note">
-          Screenshots, concept art, and gameplay trailers will be added here. The carousel is built and ready — just drop in the images when you're ready.
-        </p>
-        <div class="placeholder-badge">// Carousel ready to activate</div>
-      </div>
+    <!-- Right: cinematic credential panel -->
+    <div class="hero-right">
+      <div class="scanline"></div>
 
       <!--
       ═══════════════════════════════════════════════════════
-      CAROUSEL — uncomment and populate when ready
+      V2.0 — LOOPING BACKGROUND VIDEO
+      When your reel edit is ready, uncomment and replace reel-loop.mp4
+      Keep it muted + autoplay + loop — no controls, no sound.
+      Aim for a 15–30 sec cut of your best visual moments.
       ═══════════════════════════════════════════════════════
-      <div class="carousel" id="carousel">
-        <div class="carousel-track" id="carouselTrack">
-          <div class="carousel-slide">
-            <img src="screenshot-01.jpg" alt="Arachno Arena Screenshot 1" />
-          </div>
-          <div class="carousel-slide">
-            <img src="screenshot-02.jpg" alt="Arachno Arena Screenshot 2" />
-          </div>
-          <div class="carousel-slide">
-            <iframe src="https://player.vimeo.com/video/YOUR_ID" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-        <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
-        <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
-        <div class="carousel-dots" id="carouselDots"></div>
-      </div>
+      <video
+        autoplay muted loop playsinline
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;z-index:1;">
+        <source src="reel-loop.mp4" type="video/mp4">
+      </video>
       ═══════════════════════════════════════════════════════
       -->
+
+      <div class="filmstrip-bg">
+        <div></div><div></div><div></div>
+        <div></div><div></div><div></div>
+        <div></div><div></div><div></div>
+        <div></div><div></div><div></div>
+        <div></div><div></div><div></div>
+      </div>
+      <div class="perf-strip">
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+      </div>
+      <div class="hero-card-overlay">
+        <div class="cred-row">
+          <div>
+            <div class="cred-co">Adgile Gaming</div>
+            <div class="cred-role-text">Founder &amp; CEO — Arachno Arena</div>
+          </div>
+          <div class="cred-yr">Oct 2025 – Now</div>
+        </div>
+        <div class="cred-row">
+          <div>
+            <div class="cred-co">Klaviyo</div>
+            <div class="cred-role-text">Senior Video Producer</div>
+          </div>
+          <div class="cred-yr">2018 – Dec 2025</div>
+        </div>
+        <div class="cred-row">
+          <div>
+            <div class="cred-co">NESN</div>
+            <div class="cred-role-text">Sr. Audio Engineer — Red Sox &amp; Bruins</div>
+          </div>
+          <div class="cred-yr">2008 – 2018</div>
+        </div>
+        <div class="cred-row">
+          <div>
+            <div class="cred-co">FOX 12 / ABC 7 / ESPN</div>
+            <div class="cred-role-text">Audio Engineer &amp; Graphics</div>
+          </div>
+          <div class="cred-yr">1998 – 2008</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <div class="about-section" id="about">
-    <div class="section reveal">
-      <p class="s-label">Who We Are</p>
-      <h2 class="s-title">Built Different.<br>On Purpose.</h2>
-      <p class="s-body">
-        Adgile Gaming was founded by Aaron Goeglein — a National Emmy Award-winning video producer with 25+ years of storytelling experience. The same instincts that shaped broadcast television now drive game design.
+  <!-- AWARDS STRIP -->
+  <div class="awards-strip">
+    <div class="awards-inner">
+      <div class="award-item">
+        <div class="award-icon">🏆</div>
+        <div>
+          <div class="award-title">National Emmy Award</div>
+          <div class="award-detail">Best Sports Remote Production, 1998</div>
+        </div>
+      </div>
+      <div class="award-div"></div>
+      <div class="award-item">
+        <div class="award-icon">🎖️</div>
+        <div>
+          <div class="award-title">Regional Emmy Nominee</div>
+          <div class="award-detail">Best Audio — New England</div>
+        </div>
+      </div>
+      <div class="award-div"></div>
+      <div class="award-item">
+        <div class="award-icon">⭐</div>
+        <div>
+          <div class="award-title">NESN MVP of the Quarter</div>
+          <div class="award-detail">Q3 2017</div>
+        </div>
+      </div>
+      <div class="award-div"></div>
+      <div class="award-item">
+        <div class="award-icon">🎓</div>
+        <div>
+          <div class="award-title">University of Arizona</div>
+          <div class="award-detail">BA Media Arts · Minor in Spanish</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL -->
+  <div class="reel-section" id="reel">
+    <div class="reel-inner reveal">
+      <p class="s-label">Video</p>
+      <h2 class="s-title" style="color:var(--white)">The <em>Reel</em></h2>
+      <p style="color:rgba(255,255,255,0.38);max-width:55ch;font-size:0.93rem;line-height:1.7;">
+        25+ years of broadcast, corporate, commercial, and documentary work. Klaviyo. NESN. FOX. ABC. ESPN. Every frame intentional.
       </p>
 
-      <div class="about-grid">
-        <div class="about-card">
-          <span class="about-card-icon">🎬</span>
-          <h3 class="about-card-title">Craft-First Development</h3>
-          <p class="about-card-body">Every system, mechanic, and card in Arachno Arena is designed with intention — not generated by committee or diluted by scope creep. 25 years of production discipline applied to game design.</p>
+      <div class="video-embed-wrapper">
+        <!--
+          VIMEO  → uncomment, replace VIDEO_ID:
+          <iframe src="https://player.vimeo.com/video/VIDEO_ID?autoplay=0&title=0&byline=0&portrait=0&color=BF4A18" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+          YOUTUBE → uncomment, replace VIDEO_ID:
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+          SELF-HOSTED → uncomment, update path:
+          <video controls poster="reel-poster.jpg">
+            <source src="aaron-goeglein-reel-2025.mp4" type="video/mp4">
+          </video>
+        -->
+        <div class="video-placeholder">
+          <div class="play-btn">▶</div>
+          <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;">
+            Add Vimeo · YouTube · or Self-Hosted Video
+          </p>
         </div>
-        <div class="about-card">
-          <span class="about-card-icon">🤖</span>
-          <h3 class="about-card-title">AI-Powered Workflows</h3>
-          <p class="about-card-body">We use agentic AI tools — Claude, Gemini, and custom pipelines — not to replace creativity, but to multiply it. A solo studio with the velocity of a team.</p>
+      </div>
+      <p class="video-note">// Uncomment the iframe above and paste your video ID — or drop an mp4 file in the same folder as self-hosted</p>
+
+      <div class="reel-links">
+        <a href="#">Commercial / Brand</a>
+        <a href="#">Documentary</a>
+        <a href="#">Klaviyo: Customer Education</a>
+        <a href="#">NESN: Live Broadcast</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section class="experience-section" id="experience">
+    <div class="reveal">
+      <p class="s-label">Career</p>
+      <h2 class="s-title">Experience</h2>
+    </div>
+
+    <div class="exp-grid reveal">
+      <div class="exp-sidebar">
+        <div class="exp-nav-item active" onclick="showExp('klaviyo',this)">
+          <div class="exp-nav-company">Klaviyo</div>
+          <div class="exp-nav-years">2018 – Dec 2025 · Boston / Remote</div>
+          <div class="exp-nav-bar"></div>
         </div>
-        <div class="about-card">
-          <span class="about-card-icon">📱</span>
-          <h3 class="about-card-title">Mobile-First Strategy</h3>
-          <p class="about-card-body">Arachno Arena is built from the ground up for touch, then expanded to desktop. No ports, no compromises — each platform gets the experience it deserves.</p>
+        <div class="exp-nav-item" onclick="showExp('nesn',this)">
+          <div class="exp-nav-company">NESN</div>
+          <div class="exp-nav-years">2008 – 2018 · Watertown, MA</div>
+          <div class="exp-nav-bar"></div>
         </div>
-        <div class="about-card">
-          <span class="about-card-icon">🕷️</span>
-          <h3 class="about-card-title">One Title. All-In.</h3>
-          <p class="about-card-body">Small by choice, precise by design. Our focus is entirely on making Arachno Arena exceptional — not spreading thin across a portfolio of unfinished ideas.</p>
+        <div class="exp-nav-item" onclick="showExp('broadcast',this)">
+          <div class="exp-nav-company">FOX / ABC / ESPN</div>
+          <div class="exp-nav-years">1998 – 2008 · Portland / SF</div>
+          <div class="exp-nav-bar"></div>
+        </div>
+        <div class="exp-nav-item" onclick="showExp('freelance',this)">
+          <div class="exp-nav-company">Freelance</div>
+          <div class="exp-nav-years">2016 – 2018 · Boston Area</div>
+          <div class="exp-nav-bar"></div>
+        </div>
+        <div class="exp-nav-item" onclick="showExp('adgile',this)">
+          <div class="exp-nav-company">Adgile Gaming</div>
+          <div class="exp-nav-years">Oct 2025 – Present · Nashville</div>
+          <div class="exp-nav-bar"></div>
         </div>
       </div>
 
-      <div class="stats-row">
-        <div class="stat-cell">
-          <div class="stat-num">01</div>
-          <div class="stat-label">Flagship Title in Dev</div>
+      <div class="exp-content">
+        <div class="exp-panel active" id="exp-klaviyo">
+          <div class="exp-role">Senior Video Producer</div>
+          <div class="exp-company-full">Klaviyo — Boston, MA (Remote)</div>
+          <div class="exp-meta">2018 – December 2025 · Promoted 2022 · 7 Years: Startup → Public Company (NYSE: KVYO)</div>
+          <ul class="exp-bullets">
+            <li>Strategically lead end-to-end production of high-quality customer education video and audio content for 7 years — from startup through public offering — directly contributing to business growth and brand alignment.</li>
+            <li>Manage the full project lifecycle: ideation, storyboarding, filming, editing, and distribution strategy across social, education, and marketing formats.</li>
+            <li>Develop and deliver short and long-form video and audio that translates complex technical concepts into engaging, brand-consistent content.</li>
+            <li>Partner closely with Content Strategists and the Creative Team to produce projects that entertain, educate, and uphold Klaviyo brand standards.</li>
+            <li>Own the measurement and reporting process for data-led content performance, optimizing future video and audio strategy.</li>
+          </ul>
         </div>
-        <div class="stat-cell">
-          <div class="stat-num">25<span style="font-size:1.4rem">+</span></div>
-          <div class="stat-label">Years Creative Experience</div>
+
+        <div class="exp-panel" id="exp-nesn">
+          <div class="exp-role">Senior Audio Engineer</div>
+          <div class="exp-company-full">New England Sports Network (NESN) — Watertown, MA</div>
+          <div class="exp-meta">2008 – 2018 · 10 Years · Red Sox &amp; Bruins Live Broadcasts</div>
+          <ul class="exp-bullets">
+            <li>Mixed live audio for broadcast of Boston Red Sox and Bruins pre- and post-game shows, including all NESN studio productions.</li>
+            <li>Ensured highest-quality audio for Emmy-winning productions; recording and editing live voice, effects, and music elements.</li>
+            <li>Co-created, built, and implemented a remote audio rig for live sports television production — a high-profile operational success.</li>
+            <li>Provided leadership, training, and mentoring to junior audio engineers, production associates, and studio technicians.</li>
+            <li>Led project plans and strategies supporting NESN's long-term operations goals, including scheduling, budgeting, and capital purchase plans for audio infrastructure.</li>
+            <li>Recognized: NESN MVP of the Quarter (Q3 2017) · Regional Emmy Nominee for Best Audio, New England.</li>
+          </ul>
         </div>
-        <div class="stat-cell">
-          <div class="stat-num" style="font-size:2rem;padding-top:0.4rem;">Emmy<span style="color:#D4AF37">★</span></div>
-          <div class="stat-label">Award-Winning Founder</div>
+
+        <div class="exp-panel" id="exp-broadcast">
+          <div class="exp-role">Audio Engineer &amp; Graphics Operator</div>
+          <div class="exp-company-full">KPTV FOX 12 · KGO ABC 7 · ESPN X Games</div>
+          <div class="exp-meta">1998 – 2008 · Portland, OR · San Francisco, CA · ESPN X Games</div>
+          <ul class="exp-bullets">
+            <li><strong style="color:var(--ink)">KPTV FOX 12 (1999–2007):</strong> Key role in design of a new audio booth and installation of Euphonix Max Air audio console. Primary audio engineer for live news and sports broadcasts.</li>
+            <li><strong style="color:var(--ink)">KGO ABC 7 (2007–2008):</strong> Designed and created graphics for sports news broadcasts using Photoshop; operated VizRT graphics engine live on-air.</li>
+            <li><strong style="color:var(--ink)">ESPN X Games (1998 &amp; 1999):</strong> Operated parabolic and shotgun microphones for live remote production. The 1998 broadcast earned a <em>National Emmy Award for Best Sports Remote Production</em>.</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-freelance">
+          <div class="exp-role">Videographer, Producer &amp; Editor</div>
+          <div class="exp-company-full">Baypath Humane Society · Audacious Traveler</div>
+          <div class="exp-meta">2016 – 2018 · Boston Metro Area · Independent</div>
+          <ul class="exp-bullets">
+            <li><strong style="color:var(--ink)">Baypath Humane Society:</strong> Conceptualized, produced, and edited promotional and PSA videos for adoption outreach. Fulfilled all roles: videography (handheld/gimbal documentary style), producing, and editing.</li>
+            <li><strong style="color:var(--ink)">Audacious Traveler:</strong> Oversaw end-to-end production operations for international travel video shoots. Managed all logistics, scripting, shooting, and editing. Grew brand's YouTube channel and social media presence independently.</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-adgile">
+          <div class="exp-role">Founder &amp; CEO</div>
+          <div class="exp-company-full">Adgile Gaming, LLC — Nashville, TN</div>
+          <div class="exp-meta">October 2025 – Present · Indie Game Studio · Flagship: Arachno Arena</div>
+          <ul class="exp-bullets">
+            <li>Founded and operate Adgile Gaming as a solo indie studio, developing Arachno Arena — a 2D deck-building Living Card Game targeting mobile and Steam.</li>
+            <li>Apply 25+ years of production, creative direction, and project management experience to game design, narrative, art direction, and brand identity.</li>
+            <li>Architect and deploy AI-assisted development workflows using Claude, Gemini, Unity, and C# — compressing solo development timelines significantly.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div class="skills-section">
+    <div class="skills-inner reveal">
+      <p class="s-label">Competencies</p>
+      <h2 class="s-title">Skills &amp; <em>Tools</em></h2>
+      <div class="skills-grid">
+        <div class="skill-col">
+          <div class="skill-col-label">Production &amp; Technical</div>
+          <div class="skill-list">
+            <div class="skill-item">Video &amp; Audio Production</div>
+            <div class="skill-item">Live Broadcast / Audio Mixing</div>
+            <div class="skill-item">Adobe Creative Cloud</div>
+            <div class="skill-item">Premiere Pro, After Effects, Audition</div>
+            <div class="skill-item">Avid Pro Tools</div>
+            <div class="skill-item">iZotope RX Advanced</div>
+            <div class="skill-item">Final Cut Pro</div>
+            <div class="skill-item">VizRT Graphics Engine</div>
+            <div class="skill-item">Digital Audio Console Fluency</div>
+          </div>
+        </div>
+        <div class="skill-col">
+          <div class="skill-col-label">Strategy &amp; Management</div>
+          <div class="skill-list">
+            <div class="skill-item">Full-Cycle Project Management</div>
+            <div class="skill-item">Stakeholder Communication</div>
+            <div class="skill-item">Creative Content Strategy</div>
+            <div class="skill-item">Budgeting &amp; Production Planning</div>
+            <div class="skill-item">Data-Led Content Performance</div>
+            <div class="skill-item">Cross-Functional Team Leadership</div>
+            <div class="skill-item">Team Mentoring &amp; Development</div>
+            <div class="skill-item">Storytelling &amp; Creative Direction</div>
+          </div>
+        </div>
+        <div class="skill-col">
+          <div class="skill-col-label">Emerging Tech</div>
+          <div class="skill-list">
+            <div class="skill-item">Unity / C# Game Development</div>
+            <div class="skill-item">AI Workflow Architecture</div>
+            <div class="skill-item">Claude &amp; Gemini (Agentic AI)</div>
+            <div class="skill-item">Local LLM / Ollama Deployment</div>
+            <div class="skill-item">Home Assistant Automation</div>
+            <div class="skill-item">BMAD AI Dev Framework</div>
+            <div class="skill-item">Prompt Engineering</div>
+            <div class="skill-item">AI Image Generation &amp; Editing</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="cyan-rule"></div>
+  <!-- WORK -->
+  <section class="work-section" id="work">
+    <div class="reveal">
+      <p class="s-label">Selected Work</p>
+      <h2 class="s-title">Projects</h2>
+    </div>
+
+    <div class="reveal">
+      <div class="work-item">
+        <div>
+          <p class="work-tag">Game Development · Adgile Gaming, LLC</p>
+          <h3 class="work-title">Arachno Arena</h3>
+          <p class="work-subtitle">Founder, Creative Director, Developer</p>
+          <p class="work-desc">A 2D deck-building Living Card Game with spider-themed strategy, mobile-first design, and AI-assisted development pipeline. Built in Unity with C# using agentic AI workflows. Targeting mobile and Steam.</p>
+        </div>
+        <span class="work-year">Oct 2025 – Present</span>
+      </div>
+
+      <div class="work-item">
+        <div>
+          <p class="work-tag">Video Production · Klaviyo (SaaS / MarTech)</p>
+          <h3 class="work-title">Klaviyo Customer Education</h3>
+          <p class="work-subtitle">Senior Video Producer — 7 Years</p>
+          <p class="work-desc">Produced and led the complete video and audio content strategy for one of the fastest-growing SaaS brands in marketing technology — from Series A through public offering on the NYSE. Short and long-form content across social, education, and marketing channels.</p>
+        </div>
+        <span class="work-year">2018 – Dec 2025</span>
+      </div>
+
+      <div class="work-item">
+        <div>
+          <p class="work-tag">Live Broadcast · NESN</p>
+          <h3 class="work-title">Red Sox &amp; Bruins Broadcasts</h3>
+          <p class="work-subtitle">Senior Audio Engineer — NESN</p>
+          <p class="work-desc">10 years mixing live audio for New England Sports Network's flagship Red Sox and Bruins coverage. Co-created a remote audio rig for live sports TV. Regional Emmy nominee for Best Audio.</p>
+        </div>
+        <span class="work-year">2008 – 2018</span>
+      </div>
+
+      <div class="work-item">
+        <div>
+          <p class="work-tag">Live Broadcast · ESPN</p>
+          <h3 class="work-title">ESPN X Games</h3>
+          <p class="work-subtitle">Audio — National Emmy Award, Best Sports Remote Production</p>
+          <p class="work-desc">Operated parabolic and shotgun microphones for live X Games remote production in 1998 and 1999. The 1998 broadcast earned a National Emmy Award for Best Sports Remote Production.</p>
+        </div>
+        <span class="work-year">1998 – 1999</span>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--rule);display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <a href="Aaron_Goeglein_Resume_2025.pdf" download class="btn btn-accent">↓ Download Full Resume (PDF)</a>
+      <a href="https://linkedin.com/in/aarongoeglein" target="_blank" class="btn btn-outline-mid">LinkedIn ↗</a>
+    </div>
+  </section>
 
   <!-- CONTACT -->
   <div class="contact-section" id="contact">
     <div class="contact-inner reveal">
-
       <div>
-        <p class="s-label">Get In Touch</p>
-        <h2 class="s-title">Business<br>Inquiries</h2>
-        <p class="s-body" style="margin-top:1rem;">
-          Press coverage, partnership opportunities, or anything business-related — reach out below.
+        <p class="s-label">Let's Talk</p>
+        <h2 class="s-title">Contact</h2>
+        <p style="color:var(--mid);max-width:42ch;font-size:0.93rem;line-height:1.75;margin-top:1rem;">
+          Open to video production work, creative consulting, game industry conversations, and AI workflow projects.
         </p>
 
-        <a class="contact-method" href="mailto:info@adgilegaming.com">
-          info@adgilegaming.com
-          <span class="method-type">General</span>
-        </a>
-        <a class="contact-method" href="mailto:press@adgilegaming.com">
-          press@adgilegaming.com
-          <span class="method-type">Press</span>
-        </a>
-        <a class="contact-method" href="https://arachnoarena.com" target="_blank">
-          arachnoarena.com
-          <span class="method-type">Game ↗</span>
-        </a>
-        <a class="contact-method" href="https://aarongoeglein.com" target="_blank">
-          aarongoeglein.com
-          <span class="method-type">Founder ↗</span>
-        </a>
-
-        <p style="font-family:var(--display);font-size:0.72rem;color:var(--faint);margin-top:2rem;letter-spacing:0.04em;">
-          Nashville, TN · Adgile Gaming, LLC · Est. October 2025
-        </p>
+        <a href="mailto:Aaron.Goeglein@gmail.com" class="contact-link">Aaron.Goeglein@gmail.com <span>Email</span></a>
+        <a href="tel:+15034905492" class="contact-link">(503) 490-5492 <span>Phone</span></a>
+        <a href="https://linkedin.com/in/aarongoeglein" target="_blank" class="contact-link">linkedin.com/in/aarongoeglein <span>LinkedIn ↗</span></a>
+        <a href="https://adgilegaming.com" target="_blank" class="contact-link">adgilegaming.com <span>Adgile Gaming ↗</span></a>
+        <a href="Aaron_Goeglein_Resume_2025.pdf" download class="contact-link">Aaron_Goeglein_Resume_2025.pdf <span>↓ Resume PDF</span></a>
       </div>
 
       <div>
-        <p style="font-family:var(--display);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);margin-bottom:0.5rem;">Send a Message</p>
-        <p style="font-family:var(--display);font-size:0.68rem;color:var(--faint);margin-bottom:1.75rem;">
-          // Powered by Formspree — replace YOUR_FORM_ID after signing up at formspree.io
-        </p>
+        <p style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.5rem;">Send a Message</p>
+        <p style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.08em;color:var(--faint);margin-bottom:1.75rem;">// Free form via Formspree — replace YOUR_FORM_ID after signing up at formspree.io</p>
         <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="cf-field">
-            <label class="cf-label">Name</label>
-            <input class="cf-input" type="text" name="name" placeholder="Your name" required />
+          <div class="ff">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required />
           </div>
-          <div class="cf-field">
-            <label class="cf-label">Email</label>
-            <input class="cf-input" type="email" name="email" placeholder="your@email.com" required />
+          <div class="ff">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required />
           </div>
-          <div class="cf-field">
-            <label class="cf-label">Inquiry Type</label>
-            <input class="cf-input" type="text" name="type" placeholder="Press / Partnership / Investment / Other" />
+          <div class="ff">
+            <label>Message</label>
+            <textarea name="message" placeholder="Tell me about your project or opportunity..." required></textarea>
           </div>
-          <div class="cf-field">
-            <label class="cf-label">Message</label>
-            <textarea class="cf-textarea" name="message" placeholder="Tell us about your inquiry..." required></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="align-self:flex-start;border:none;cursor:pointer;">
-            Send Message →
-          </button>
+          <button type="submit" class="btn btn-accent" style="align-self:flex-start;">Send →</button>
         </form>
       </div>
-
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-brand">
-      <img class="footer-logo" src="Arachno_Arena_Logo_Square.png" alt="Adgile Gaming" />
-      <span class="footer-name">Adgile Gaming, LLC</span>
+    <span>© 2025 Aaron Goeglein · All Rights Reserved</span>
+    <span>Nashville, TN · (503) 490-5492</span>
+    <div style="display:flex;gap:2rem;">
+      <a href="https://adgilegaming.com">Adgile Gaming ↗</a>
+      <a href="https://linkedin.com/in/aarongoeglein">LinkedIn ↗</a>
     </div>
-    <div class="footer-links">
-      <a href="https://arachnoarena.com" target="_blank">Arachno Arena ↗</a>
-      <a href="https://aarongoeglein.com" target="_blank">Aaron Goeglein ↗</a>
-    </div>
-    <span class="footer-copy">© 2025 Adgile Gaming, LLC · Nashville, TN</span>
   </footer>
 
   <script>
-    // ── SCROLL REVEAL ──
+    // Experience tabs
+    function showExp(id, el) {
+      document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.exp-nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('exp-' + id).classList.add('active');
+      el.classList.add('active');
+    }
+
+    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
       });
-    }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => observer.observe(el));
 
-    // ── SCROLL-AWARE NAV ──
+    // Scroll-aware nav highlight
     window.addEventListener('scroll', () => {
       const y = window.scrollY + 120;
       document.querySelectorAll('[id]').forEach(s => {
         if (s.offsetTop <= y && s.offsetTop + s.offsetHeight > y) {
           document.querySelectorAll('.nav-links a').forEach(a => {
-            a.style.color = a.getAttribute('href') === '#' + s.id
-              ? 'var(--cyan)' : '';
+            a.style.color = a.getAttribute('href') === '#' + s.id ? 'var(--accent)' : '';
           });
         }
       });
     }, { passive: true });
-
-    /*
-    ══════════════════════════════════════════════════
-    CAROUSEL LOGIC — ready to activate when needed
-    ══════════════════════════════════════════════════
-    let currentSlide = 0;
-
-    function initCarousel() {
-      const track = document.getElementById('carouselTrack');
-      const slides = track?.querySelectorAll('.carousel-slide');
-      const dotsContainer = document.getElementById('carouselDots');
-      if (!slides || !dotsContainer) return;
-
-      slides.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.classList.add('carousel-dot');
-        if (i === 0) dot.classList.add('active');
-        dot.onclick = () => goToSlide(i);
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    function goToSlide(n) {
-      const track = document.getElementById('carouselTrack');
-      const slides = track?.querySelectorAll('.carousel-slide');
-      const dots = document.querySelectorAll('.carousel-dot');
-      if (!slides) return;
-      currentSlide = (n + slides.length) % slides.length;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-    }
-
-    function moveCarousel(dir) { goToSlide(currentSlide + dir); }
-    initCarousel();
-    ══════════════════════════════════════════════════
-    */
   </script>
 </body>
 </html>
