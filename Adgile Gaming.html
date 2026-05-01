@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adgile Gaming — Indie Game Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0b0e; font-family: 'DM Sans', sans-serif; color: #e8e4dc; overflow: hidden; height: 100vh; }
+
+  /* === SHARED TOKENS === */
+  :root {
+    --aa-parchment: #f0e8d5;
+    --aa-ink: #2a1f0e;
+    --aa-sepia: #8b6b3d;
+    --aa-rust: #7a3a1a;
+    --cc-gold: #c8922a;
+    --cc-warm: #f5ede0;
+    --cc-bark: #5c3d1e;
+    --studio-dark: #0a0b0e;
+    --studio-mid: #141720;
+    --studio-border: rgba(255,255,255,0.08);
+    --studio-muted: rgba(232,228,220,0.45);
+  }
+
+  /* === VARIATION 1: SPLIT HALVES === */
+  .v1 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 56px 1fr;
+    background: var(--studio-dark);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+  .v1-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    border-bottom: 1px solid var(--studio-border);
+    background: rgba(10,11,14,0.95);
+    gap: 32px;
+  }
+  .v1-nav-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e8e4dc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .v1-nav-brand img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+  .v1-nav-links { display: flex; gap: 28px; align-items: center; }
+  .v1-nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--studio-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .v1-nav-links a:hover { color: #e8e4dc; }
+  .v1-nav-links a.active { color: #e8e4dc; }
+  .v1-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* AA Panel */
+  .v1-aa-panel {
+    position: relative;
+    overflow: hidden;
+    background: var(--aa-parchment);
+    cursor: pointer;
+  }
+  .v1-aa-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse at 70% 60%, rgba(139,107,61,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 30%, rgba(122,58,26,0.12) 0%, transparent 50%),
+      linear-gradient(160deg, #f5eedf 0%, #e8d9b8 50%, #d4c49a 100%);
+  }
+  .v1-aa-noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+  .v1-aa-img {
+    position: absolute;
+    right: -5%;
+    bottom: -5%;
+    width: 72%;
+    opacity: 0.92;
+    filter: drop-shadow(-8px -8px 20px rgba(42,31,14,0.3));
+    transform: rotate(-3deg);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .v1-aa-panel:hover .v1-aa-img { transform: rotate(-1deg) scale(1.03); opacity: 1; }
+  .v1-aa-content {
+    position: relative;
+    z-index: 2;
+    padding: 44px 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .v1-aa-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--aa-rust);
+    margin-bottom: 8px;
+  }
+  .v1-aa-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 0.92;
+    color: var(--aa-ink);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .v1-aa-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .v1-aa-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--aa-rust);
+    border: 1px solid rgba(122,58,26,0.35);
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: rgba(122,58,26,0.06);
+  }
+  .v1-aa-desc {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: rgba(42,31,14,0.75);
+    max-width: 320px;
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+  .v1-aa-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .v1-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: var(--aa-ink);
+    color: var(--aa-parchment);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    align-self: flex-start;
+  }
+  .v1-btn-primary:hover { background: var(--aa-rust); transform: translateY(-1px); }
+  .v1-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: transparent;
+    color: var(--aa-ink);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid rgba(42,31,14,0.4);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    align-self: flex-start;
+  }
+  .v1-btn-ghost:hover { border-color: var(--aa-ink); background: rgba(42,31,14,0.06); }
+  .v1-aa-status {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 500; color: rgba(42,31,14,0.55); letter-spacing: 0.05em;
+  }
+  .v1-aa-status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #7a8c3d; box-shadow: 0 0 6px rgba(122,140,61,0.7);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.5; } }
+
+  /* CC Panel */
+  .v1-cc-panel {
+    position: relative;
+    overflow: hidden;
+    background: #1a1208;
+    cursor: pointer;
+  }
+  .v1-cc-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(200,146,42,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(92,61,30,0.3) 0%, transparent 50%),
+      linear-gradient(135deg, #1a1208 0%, #0f0c07 100%);
+  }
+  .v1-cc-img {
+    position: absolute;
+    left: -4%;
+    bottom: -8%;
+    width: 68%;
+    opacity: 0.88;
+    filter: drop-shadow(8px -8px 24px rgba(200,146,42,0.2));
+    transform: rotate(4deg);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .v1-cc-panel:hover .v1-cc-img { transform: rotate(2deg) scale(1.03); opacity: 1; }
+  .v1-cc-content {
+    position: relative;
+    z-index: 2;
+    padding: 44px 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    text-align: right;
+  }
+  .v1-cc-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cc-gold);
+    margin-bottom: 8px;
+  }
+  .v1-cc-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 0.92;
+    color: var(--cc-warm);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .v1-cc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+    justify-content: flex-end;
+  }
+  .v1-cc-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cc-gold);
+    border: 1px solid rgba(200,146,42,0.35);
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: rgba(200,146,42,0.07);
+  }
+  .v1-cc-desc {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: rgba(245,237,224,0.62);
+    max-width: 300px;
+    margin-bottom: 28px;
+    font-weight: 400;
+    text-align: right;
+  }
+  .v1-cc-footer { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+  .v1-cc-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: var(--cc-gold);
+    color: #100b04;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    align-self: flex-end;
+  }
+  .v1-cc-btn-primary:hover { background: #e0a830; transform: translateY(-1px); }
+  .v1-cc-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: transparent;
+    color: var(--cc-warm);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid rgba(245,237,224,0.25);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    align-self: flex-end;
+  }
+  .v1-cc-btn-ghost:hover { border-color: var(--cc-warm); background: rgba(245,237,224,0.05); }
+  .v1-cc-status { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; color: rgba(245,237,224,0.42); letter-spacing: 0.05em; }
+  .v1-divider {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.12) 70%, transparent);
+    z-index: 10;
+  }
+
+  /* === VARIATION 2: EDITORIAL CARDS === */
+  .v2 {
+    width: 100%;
+    height: 100%;
+    background: var(--studio-dark);
+    display: grid;
+    grid-template-rows: 56px 1fr;
+    overflow: hidden;
+  }
+  .v2-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    border-bottom: 1px solid var(--studio-border);
+  }
+  .v2-nav-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .v2-nav-brand img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+  .v2-nav-links { display: flex; gap: 32px; }
+  .v2-nav-links a {
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--studio-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .v2-nav-links a:hover { color: #e8e4dc; }
+  .v2-body {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  /* AA Row */
+  .v2-aa-row {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 520px;
+    border-bottom: 1px solid var(--studio-border);
+    background: linear-gradient(100deg, #f2e9d6 0%, #e4d4b0 100%);
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+  .v2-aa-row:hover { filter: brightness(1.04); }
+  .v2-aa-left {
+    padding: 40px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .v2-aa-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(42,31,14,0.07);
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+  .v2-aa-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--aa-rust); margin-bottom: 10px;
+  }
+  .v2-aa-title-row {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--aa-ink);
+    line-height: 0.94;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .v2-aa-desc-row {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(42,31,14,0.7);
+    max-width: 440px;
+    margin-bottom: 24px;
+  }
+  .v2-aa-tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .v2-aa-tag-row {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--aa-rust); border: 1px solid rgba(122,58,26,0.3); padding: 3px 8px; border-radius: 2px;
+    background: rgba(122,58,26,0.05);
+  }
+  .v2-aa-cta { display: flex; gap: 12px; align-items: center; }
+  .v2-cta-primary {
+    padding: 10px 20px;
+    background: var(--aa-ink); color: var(--aa-parchment);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s; border: none; cursor: pointer;
+  }
+  .v2-cta-primary:hover { background: var(--aa-rust); }
+  .v2-cta-link {
+    font-size: 12px; letter-spacing: 0.05em; color: rgba(42,31,14,0.55); text-decoration: none;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .v2-cta-link:hover { color: var(--aa-ink); }
+  .v2-aa-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .v2-aa-cards {
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: -30px;
+    width: 130%;
+    justify-content: center;
+  }
+  .v2-aa-card-wrap {
+    width: 200px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 12px 28px rgba(42,31,14,0.35));
+    transition: transform 0.3s;
+  }
+  .v2-aa-card-wrap:nth-child(1) { transform: rotate(-8deg) translateY(10px); }
+  .v2-aa-card-wrap:nth-child(2) { transform: rotate(-2deg) translateY(-5px); z-index: 2; }
+  .v2-aa-card-wrap:nth-child(3) { transform: rotate(6deg) translateY(15px); }
+  .v2-aa-row:hover .v2-aa-card-wrap:nth-child(1) { transform: rotate(-10deg) translateY(5px) translateX(-5px); }
+  .v2-aa-row:hover .v2-aa-card-wrap:nth-child(2) { transform: rotate(-2deg) translateY(-12px); }
+  .v2-aa-row:hover .v2-aa-card-wrap:nth-child(3) { transform: rotate(8deg) translateY(8px) translateX(5px); }
+  .v2-aa-card-wrap img { width: 100%; display: block; }
+
+  /* CC Row */
+  .v2-cc-row {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 520px 1fr;
+    background: #0f0c08;
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+  .v2-cc-row:hover { filter: brightness(1.08); }
+  .v2-cc-left {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .v2-cc-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    transition: transform 0.4s;
+  }
+  .v2-cc-row:hover .v2-cc-logo-wrap { transform: scale(1.04) rotate(-1deg); }
+  .v2-cc-logo-wrap img { width: 340px; filter: drop-shadow(0 12px 32px rgba(200,146,42,0.3)); }
+  .v2-cc-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(200,146,42,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .v2-cc-right {
+    padding: 40px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .v2-cc-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 120px; font-weight: 900; line-height: 1;
+    color: rgba(200,146,42,0.06);
+    position: absolute; top: -10px; right: 40px;
+    letter-spacing: -0.04em; user-select: none;
+  }
+  .v2-cc-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--cc-gold); margin-bottom: 10px;
+  }
+  .v2-cc-title-row {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--cc-warm);
+    line-height: 0.94;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .v2-cc-desc-row {
+    font-size: 13px; line-height: 1.65;
+    color: rgba(245,237,224,0.55); max-width: 420px; margin-bottom: 24px;
+  }
+  .v2-cc-tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .v2-cc-tag-row {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--cc-gold); border: 1px solid rgba(200,146,42,0.3); padding: 3px 8px; border-radius: 2px;
+    background: rgba(200,146,42,0.06);
+  }
+  .v2-cc-cta { display: flex; gap: 12px; align-items: center; }
+  .v2-cc-cta-primary {
+    padding: 10px 20px;
+    background: var(--cc-gold); color: #0d0900;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s; border: none; cursor: pointer;
+  }
+  .v2-cc-cta-primary:hover { background: #dfa02e; }
+  .v2-cc-cta-link {
+    font-size: 12px; letter-spacing: 0.05em; color: rgba(245,237,224,0.4); text-decoration: none;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .v2-cc-cta-link:hover { color: var(--cc-warm); }
+  .v2-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #7a8c3d; box-shadow: 0 0 6px rgba(122,140,61,0.7); animation: pulse 2s ease-in-out infinite; display: inline-block; margin-right: 6px; }
+
+  /* === VARIATION 3: PORTFOLIO GRID === */
+  .v3 {
+    width: 100%;
+    height: 100%;
+    background: #0e0f12;
+    display: grid;
+    grid-template-rows: 56px 1fr 52px;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .v3-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 44px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .v3-nav-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .v3-nav-brand img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+  .v3-nav-right { display: flex; gap: 28px; align-items: center; }
+  .v3-nav-right a {
+    font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(232,228,220,0.4); text-decoration: none; transition: color 0.2s;
+  }
+  .v3-nav-right a:hover { color: #e8e4dc; }
+
+  .v3-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+  }
+
+  .v3-tile {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  /* AA Tile */
+  .v3-aa-tile {
+    background: linear-gradient(145deg, #ede4cf 0%, #d9c99a 100%);
+  }
+  .v3-aa-tile-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 70%, rgba(122,58,26,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 20%, rgba(240,232,213,0.6) 0%, transparent 50%);
+  }
+  .v3-aa-capsule {
+    position: absolute;
+    right: -6%;
+    bottom: -8%;
+    width: 65%;
+    filter: drop-shadow(-10px -6px 24px rgba(42,31,14,0.4));
+    transition: transform 0.5s ease;
+    transform: rotate(-2deg);
+  }
+  .v3-aa-tile:hover .v3-aa-capsule { transform: rotate(0deg) scale(1.04) translateY(-8px); }
+  .v3-aa-tile-content {
+    position: relative; z-index: 2;
+    padding: 44px 44px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .v3-aa-tile-top { flex: 1; }
+  .v3-tile-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .v3-aa-tile-num { color: rgba(122,58,26,0.6); }
+  .v3-cc-tile-num { color: rgba(200,146,42,0.6); }
+  .v3-tile-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .v3-aa-tile-eyebrow { color: var(--aa-rust); }
+  .v3-cc-tile-eyebrow { color: var(--cc-gold); }
+  .v3-tile-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 5vw, 68px); font-weight: 900;
+    line-height: 0.9; text-transform: uppercase; letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .v3-aa-tile-title { color: var(--aa-ink); }
+  .v3-cc-tile-title { color: var(--cc-warm); }
+  .v3-tile-desc {
+    font-size: 13px; line-height: 1.6; max-width: 340px; margin-bottom: 20px;
+  }
+  .v3-aa-tile-desc { color: rgba(42,31,14,0.68); }
+  .v3-cc-tile-desc { color: rgba(245,237,224,0.55); }
+  .v3-tile-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .v3-tile-tag {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px; border: 1px solid;
+  }
+  .v3-aa-tile-tag { color: var(--aa-rust); border-color: rgba(122,58,26,0.3); background: rgba(122,58,26,0.05); }
+  .v3-cc-tile-tag { color: var(--cc-gold); border-color: rgba(200,146,42,0.3); background: rgba(200,146,42,0.06); }
+  .v3-tile-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .v3-tile-cta {
+    display: flex; gap: 10px; align-items: center;
+  }
+  .v3-aa-cta-btn {
+    padding: 9px 18px;
+    background: var(--aa-ink); color: var(--aa-parchment);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s; border: none; cursor: pointer;
+  }
+  .v3-aa-cta-btn:hover { background: var(--aa-rust); }
+  .v3-cc-cta-btn {
+    padding: 9px 18px;
+    background: var(--cc-gold); color: #0d0900;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s; border: none; cursor: pointer;
+  }
+  .v3-cc-cta-btn:hover { background: #dfa02e; }
+  .v3-tile-arrow {
+    font-size: 24px; opacity: 0.25; transition: opacity 0.2s, transform 0.2s;
+  }
+  .v3-tile:hover .v3-tile-arrow { opacity: 0.7; transform: translate(3px, -3px); }
+
+  /* CC Tile */
+  .v3-cc-tile { background: #0d0a06; }
+  .v3-cc-tile-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(200,146,42,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(92,61,30,0.2) 0%, transparent 50%);
+  }
+  .v3-cc-logo {
+    position: absolute;
+    right: -4%;
+    bottom: -6%;
+    width: 58%;
+    filter: drop-shadow(0 8px 28px rgba(200,146,42,0.25));
+    transition: transform 0.5s ease;
+    transform: rotate(3deg);
+  }
+  .v3-cc-tile:hover .v3-cc-logo { transform: rotate(1deg) scale(1.04) translateY(-8px); }
+  .v3-cc-tile-content {
+    position: relative; z-index: 2;
+    padding: 44px 44px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* v3 footer */
+  .v3-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 44px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .v3-footer-left {
+    font-size: 11px; letter-spacing: 0.08em; color: rgba(232,228,220,0.3);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 600; text-transform: uppercase;
+  }
+  .v3-footer-links { display: flex; gap: 28px; }
+  .v3-footer-links a {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(232,228,220,0.3); text-decoration: none; transition: color 0.2s;
+    font-weight: 500;
+  }
+  .v3-footer-links a:hover { color: rgba(232,228,220,0.7); }
+
+  /* === SHARED NAV CONTACT BUTTON === */
+  .nav-contact {
+    padding: 7px 16px;
+    border: 1px solid rgba(232,228,220,0.2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #e8e4dc; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .nav-contact:hover { border-color: rgba(232,228,220,0.5); background: rgba(232,228,220,0.06); }
+</style>
+</head>
+<body>
+
+<script type="text/babel">
+const { useState } = React;
+
+/* ─── VARIATION 1: SPLIT HALVES ─── */
+function V1SplitHalves() {
+  return (
+    <div className="v1">
+      {/* Nav */}
+      <nav className="v1-nav">
+        <div className="v1-nav-brand">
+          <img src="arachno-arena-logo.png" alt="Adgile Gaming" />
+          ADGILE GAMING
+        </div>
+        <div className="v1-nav-links">
+          <a href="#" className="active">Arachno Arena</a>
+          <a href="#">Critter Cache</a>
+          <a href="#">About</a>
+          <a href="#" className="nav-contact">Contact</a>
+        </div>
+      </nav>
+
+      {/* Body */}
+      <div className="v1-body">
+        <div className="v1-divider"></div>
+
+        {/* Arachno Arena */}
+        <div className="v1-aa-panel">
+          <div className="v1-aa-bg"></div>
+          <div className="v1-aa-noise"></div>
+          <img className="v1-aa-img" src="assets/aa-vertical-capsule.png" alt="Arachno Arena" />
+          <div className="v1-aa-content">
+            <div>
+              <div className="v1-aa-eyebrow">Flagship Title · In Active Development</div>
+              <h2 className="v1-aa-title">Arachno<br/>Arena</h2>
+              <div className="v1-aa-tags">
+                <span className="v1-aa-tag">Deck Builder</span>
+                <span className="v1-aa-tag">Living Card Game</span>
+                <span className="v1-aa-tag">Mobile + Steam</span>
+                <span className="v1-aa-tag">2D Strategy</span>
+              </div>
+              <p className="v1-aa-desc">A spider-themed deck-building strategy game built for mobile, with a Steam release on the horizon. Build your deck. Control the web. Outlast every opponent.</p>
+            </div>
+            <div className="v1-aa-footer">
+              <div className="v1-aa-status">
+                <span className="v1-aa-status-dot"></span>
+                In active development
+              </div>
+              <a href="https://arachnoarena.com" target="_blank" className="v1-btn-primary">Visit Game Site ↗</a>
+              <a href="#" className="v1-btn-ghost">Press Inquiries</a>
+            </div>
+          </div>
+        </div>
+
+        {/* Critter Cache */}
+        <div className="v1-cc-panel">
+          <div className="v1-cc-bg"></div>
+          <img className="v1-cc-img" src="crittercache-logo.png" alt="Critter Cache" />
+          <div className="v1-cc-content">
+            <div>
+              <div className="v1-cc-eyebrow">Live Now · Web App + iOS Coming Soon</div>
+              <h2 className="v1-cc-title">Critter<br/>Cache</h2>
+              <div className="v1-cc-tags">
+                <span className="v1-cc-tag">Kids App</span>
+                <span className="v1-cc-tag">Family</span>
+                <span className="v1-cc-tag">Habit Builder</span>
+                <span className="v1-cc-tag">Web + Mobile</span>
+              </div>
+              <p className="v1-cc-desc">Turn chores into adventures. Kids earn coins and level up their critter companion by completing daily routines — parents stay in control.</p>
+            </div>
+            <div className="v1-cc-footer">
+              <div className="v1-cc-status">
+                <span className="v1-aa-status-dot" style={{background:'#c8922a', boxShadow:'0 0 6px rgba(200,146,42,0.7)'}}></span>
+                Live at crittercache.app
+              </div>
+              <a href="https://crittercache.app" target="_blank" className="v1-cc-btn-primary">Play Now ↗</a>
+              <a href="https://beta.crittercache.app" target="_blank" className="v1-cc-btn-ghost">Open Web App</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── VARIATION 2: EDITORIAL CARDS ─── */
+function V2EditorialCards() {
+  return (
+    <div className="v2">
+      <nav className="v2-nav">
+        <div className="v2-nav-brand">
+          <img src="arachno-arena-logo.png" alt="Adgile Gaming" />
+          ADGILE GAMING
+        </div>
+        <div className="v2-nav-links">
+          <a href="#">Arachno Arena</a>
+          <a href="#">Critter Cache</a>
+          <a href="#">About</a>
+          <a href="#">Press</a>
+          <a href="#" className="nav-contact">Contact</a>
+        </div>
+      </nav>
+      <div className="v2-body">
+        {/* Arachno Arena Row */}
+        <a href="https://arachnoarena.com" target="_blank" style={{textDecoration:'none'}}>
+          <div className="v2-aa-row">
+            <div className="v2-aa-left">
+              <div className="v2-aa-number">01</div>
+              <div className="v2-aa-eyebrow">
+                <span className="v2-status-dot"></span>
+                In Active Development
+              </div>
+              <h2 className="v2-aa-title-row">Arachno Arena</h2>
+              <p className="v2-aa-desc-row">A spider-themed deck-building Living Card Game for mobile and Steam. Build your deck. Control the web. Outlast every opponent.</p>
+              <div className="v2-aa-tags-row">
+                <span className="v2-aa-tag-row">Deck Builder</span>
+                <span className="v2-aa-tag-row">LCG</span>
+                <span className="v2-aa-tag-row">Mobile + Steam</span>
+                <span className="v2-aa-tag-row">Unity / C#</span>
+              </div>
+              <div className="v2-aa-cta">
+                <span className="v2-cta-primary">Game Website ↗</span>
+                <span className="v2-cta-link">Press Inquiries →</span>
+              </div>
+            </div>
+            <div className="v2-aa-right">
+              <div className="v2-aa-cards">
+                <div className="v2-aa-card-wrap"><img src="assets/bold-jumping-spider.png" alt="Bold Jumping Spider card" /></div>
+                <div className="v2-aa-card-wrap"><img src="assets/western-black-widow.png" alt="Western Black Widow card" /></div>
+                <div className="v2-aa-card-wrap"><img src="assets/purple-gold-spider.png" alt="Purple Gold Spider card" /></div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        {/* Critter Cache Row */}
+        <a href="https://crittercache.app" target="_blank" style={{textDecoration:'none'}}>
+          <div className="v2-cc-row">
+            <div className="v2-cc-left">
+              <div className="v2-cc-glow"></div>
+              <div className="v2-cc-logo-wrap">
+                <img src="crittercache-logo.png" alt="Critter Cache" />
+              </div>
+            </div>
+            <div className="v2-cc-right">
+              <div className="v2-cc-number">02</div>
+              <div className="v2-cc-eyebrow">
+                <span style={{display:'inline-block', width:6, height:6, borderRadius:'50%', background:'#c8922a', boxShadow:'0 0 6px rgba(200,146,42,0.8)', marginRight:7, verticalAlign:'middle'}}></span>
+                Live Now — Web App Available
+              </div>
+              <h2 className="v2-cc-title-row">Critter Cache</h2>
+              <p className="v2-cc-desc-row">Turn morning battles into adventures. Kids earn coins completing daily routines alongside their critter companion — parents stay in control with a PIN-gated admin panel.</p>
+              <div className="v2-cc-tags-row">
+                <span className="v2-cc-tag-row">Kids App</span>
+                <span className="v2-cc-tag-row">Family</span>
+                <span className="v2-cc-tag-row">Habit Building</span>
+                <span className="v2-cc-tag-row">Web + iOS Soon</span>
+              </div>
+              <div className="v2-cc-cta">
+                <span className="v2-cc-cta-primary">Play Now ↗</span>
+                <span className="v2-cc-cta-link">Open Web App →</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ─── VARIATION 3: PORTFOLIO GRID ─── */
+function V3PortfolioGrid() {
+  return (
+    <div className="v3">
+      <nav className="v3-nav">
+        <div className="v3-nav-brand">
+          <img src="arachno-arena-logo.png" alt="Adgile Gaming" />
+          ADGILE GAMING
+        </div>
+        <div className="v3-nav-right">
+          <a href="#">Games</a>
+          <a href="#">About</a>
+          <a href="#">Press</a>
+          <a href="#" className="nav-contact">Contact</a>
+        </div>
+      </nav>
+
+      <div className="v3-main">
+        {/* Arachno Arena Tile */}
+        <div className="v3-tile v3-aa-tile">
+          <div className="v3-aa-tile-bg"></div>
+          <img className="v3-aa-capsule" src="assets/aa-main-capsule.png" alt="Arachno Arena" />
+          <div className="v3-aa-tile-content">
+            <div className="v3-aa-tile-top">
+              <div className="v3-tile-num v3-aa-tile-num">01 / 02</div>
+              <div className="v3-tile-eyebrow v3-aa-tile-eyebrow">
+                <span className="v1-aa-status-dot" style={{display:'inline-block', marginRight:6, verticalAlign:'middle'}}></span>
+                In Active Development
+              </div>
+              <h2 className="v3-tile-title v3-aa-tile-title">Arachno<br/>Arena</h2>
+              <p className="v3-tile-desc v3-aa-tile-desc">Deck-building Living Card Game. Spider tactics. Real depth. Mobile + Steam.</p>
+              <div className="v3-tile-tags">
+                <span className="v3-tile-tag v3-aa-tile-tag">LCG</span>
+                <span className="v3-tile-tag v3-aa-tile-tag">Deck Builder</span>
+                <span className="v3-tile-tag v3-aa-tile-tag">Mobile + Steam</span>
+              </div>
+            </div>
+            <div className="v3-tile-bottom">
+              <div className="v3-tile-cta">
+                <a href="https://arachnoarena.com" target="_blank" className="v3-aa-cta-btn">Game Site ↗</a>
+              </div>
+              <span className="v3-tile-arrow" style={{color: 'var(--aa-ink)'}}>↗</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Critter Cache Tile */}
+        <div className="v3-tile v3-cc-tile">
+          <div className="v3-cc-tile-bg"></div>
+          <img className="v3-cc-logo" src="crittercache-logo.png" alt="Critter Cache" />
+          <div className="v3-cc-tile-content">
+            <div style={{flex:1}}>
+              <div className="v3-tile-num v3-cc-tile-num">02 / 02</div>
+              <div className="v3-tile-eyebrow v3-cc-tile-eyebrow">
+                <span style={{display:'inline-block', width:6, height:6, borderRadius:'50%', background:'#c8922a', boxShadow:'0 0 6px rgba(200,146,42,0.7)', marginRight:6, verticalAlign:'middle', animation:'pulse 2s ease-in-out infinite'}}></span>
+                Live Now
+              </div>
+              <h2 className="v3-tile-title v3-cc-tile-title">Critter<br/>Cache</h2>
+              <p className="v3-tile-desc v3-cc-tile-desc">Chores become adventures. Kids earn rewards, parents stay in control. Free to start.</p>
+              <div className="v3-tile-tags">
+                <span className="v3-tile-tag v3-cc-tile-tag">Kids App</span>
+                <span className="v3-tile-tag v3-cc-tile-tag">Family</span>
+                <span className="v3-tile-tag v3-cc-tile-tag">Web + iOS Soon</span>
+              </div>
+            </div>
+            <div className="v3-tile-bottom">
+              <div className="v3-tile-cta">
+                <a href="https://crittercache.app" target="_blank" className="v3-cc-cta-btn">Play Now ↗</a>
+                <a href="https://beta.crittercache.app" target="_blank" style={{fontSize:11.5, color:'rgba(245,237,224,0.4)', textDecoration:'none', letterSpacing:'0.05em', fontWeight:500}}>Web App →</a>
+              </div>
+              <span className="v3-tile-arrow" style={{color: 'var(--cc-gold)'}}>↗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer className="v3-footer">
+        <div className="v3-footer-left">Adgile Gaming, LLC · Nashville, TN · Est. Oct 2025</div>
+        <div className="v3-footer-links">
+          <a href="https://arachnoarena.com" target="_blank">Arachno Arena ↗</a>
+          <a href="https://crittercache.app" target="_blank">Critter Cache ↗</a>
+          <a href="https://aarongoeglein.com" target="_blank">Aaron Goeglein ↗</a>
+          <a href="mailto:info@adgilegaming.com">Contact</a>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+/* ─── DESIGN CANVAS WRAPPER ─── */
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="s1" title="Layout Variations — Adgile Gaming Studio Page">
+        <DCArtboard id="v1" label="Option A — Split Halves" width={1440} height={780}>
+          <V1SplitHalves />
+        </DCArtboard>
+        <DCArtboard id="v2" label="Option B — Editorial Rows" width={1440} height={780}>
+          <V2EditorialCards />
+        </DCArtboard>
+        <DCArtboard id="v3" label="Option C — Portfolio Grid" width={1440} height={780}>
+          <V3PortfolioGrid />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<div id="root"></div>
+</body>
+</html>

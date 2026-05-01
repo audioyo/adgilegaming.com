@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adgile Gaming — Indie Game Studio · Nashville, TN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --aa-parchment: #f0e8d5;
+  --aa-parchment-deep: #dfd0b0;
+  --aa-ink: #2a1f0e;
+  --aa-sepia: #8b6b3d;
+  --aa-rust: #7a3a1a;
+  --cc-gold: #c8922a;
+  --cc-warm: #f5ede0;
+  --cc-bark: #5c3d1e;
+  --cc-dark: #0f0c08;
+  --studio-dark: #0a0b0e;
+  --studio-mid: #111318;
+  --studio-border: rgba(255,255,255,0.07);
+  --studio-muted: rgba(232,228,220,0.42);
+  --studio-text: #e8e4dc;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--studio-text);
+  background: var(--studio-dark);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(10,11,14,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--studio-border);
+  transition: background 0.3s;
+}
+.nav-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--studio-text);
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+}
+.nav-brand img {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--studio-text); }
+.nav-contact {
+  padding: 7px 18px;
+  border: 1px solid rgba(232,228,220,0.18);
+  color: var(--studio-text) !important;
+  transition: border-color 0.2s, background 0.2s !important;
+}
+.nav-contact:hover {
+  border-color: rgba(232,228,220,0.45) !important;
+  background: rgba(232,228,220,0.06) !important;
+}
+
+/* ─── HERO: SPLIT HALVES ─── */
+#hero {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 58px;
+  position: relative;
+}
+
+.hero-divider {
+  position: absolute;
+  left: 50%; top: 58px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.14) 20%, rgba(255,255,255,0.14) 80%, transparent);
+  z-index: 10;
+}
+
+/* AA Panel */
+.hero-aa {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(155deg, #f5eedf 0%, #e8d9b8 50%, #d8c49c 100%);
+  cursor: pointer;
+}
+.hero-aa-radial {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 75% 65%, rgba(139,107,61,0.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 25%, rgba(122,58,26,0.1) 0%, transparent 45%);
+  pointer-events: none;
+}
+.hero-aa-texture {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 0.7;
+}
+.hero-aa-img {
+  position: absolute;
+  right: -8%;
+  bottom: -8%;
+  width: 65%;
+  opacity: 0.93;
+  filter: drop-shadow(-10px -10px 28px rgba(42,31,14,0.28));
+  transform: rotate(-3deg);
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), opacity 0.4s;
+  pointer-events: none;
+}
+.hero-aa:hover .hero-aa-img { transform: rotate(-1.5deg) scale(1.03) translateY(-6px); opacity: 1; }
+
+.hero-aa-content {
+  position: relative; z-index: 2;
+  padding: 52px 52px 48px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.hero-aa .hero-eyebrow { color: var(--aa-rust); }
+.hero-cc .hero-eyebrow { color: var(--cc-gold); }
+.pulse-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  animation: pulse 2.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.aa-dot { background: #7a8c3d; box-shadow: 0 0 8px rgba(122,140,61,0.8); }
+.cc-dot { background: var(--cc-gold); box-shadow: 0 0 8px rgba(200,146,42,0.8); }
+@keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.5; transform:scale(0.85); } }
+
+.hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(56px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.hero-aa .hero-title { color: var(--aa-ink); }
+.hero-cc .hero-title { color: var(--cc-warm); }
+
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  margin-bottom: 22px;
+}
+.hero-tag {
+  font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px; border: 1px solid;
+}
+.aa-tag { color: var(--aa-rust); border-color: rgba(122,58,26,0.32); background: rgba(122,58,26,0.05); }
+.cc-tag { color: var(--cc-gold); border-color: rgba(200,146,42,0.32); background: rgba(200,146,42,0.06); }
+
+.hero-desc {
+  font-size: 14px; line-height: 1.7;
+  max-width: 340px; margin-bottom: 36px;
+  font-weight: 400;
+}
+.hero-aa .hero-desc { color: rgba(42,31,14,0.95); font-weight: 500; }
+.hero-cc .hero-desc { color: rgba(245,237,224,0.6); }
+
+.hero-ctas { display: flex; flex-direction: column; gap: 11px; align-items: flex-start; }
+.hero-cc .hero-ctas { align-items: flex-end; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.aa-btn-primary { background: var(--aa-ink); color: var(--aa-parchment); }
+.aa-btn-primary:hover { background: var(--aa-rust); }
+.cc-btn-primary { background: var(--cc-gold); color: #0d0900; }
+.cc-btn-primary:hover { background: #dda52f; }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  border: 1.5px solid;
+}
+.aa-btn-ghost { color: var(--aa-ink); border-color: rgba(42,31,14,0.3); background: transparent; }
+.aa-btn-ghost:hover { border-color: var(--aa-ink); background: rgba(42,31,14,0.05); }
+.cc-btn-ghost { color: var(--cc-warm); border-color: rgba(245,237,224,0.22); background: transparent; }
+.cc-btn-ghost:hover { border-color: rgba(245,237,224,0.5); background: rgba(245,237,224,0.04); }
+
+/* CC Panel */
+.hero-cc {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 35% 45%, #1e1408 0%, #0d0a06 100%);
+  cursor: pointer;
+}
+.hero-cc-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 28% 42%, rgba(200,146,42,0.18) 0%, transparent 52%),
+    radial-gradient(ellipse at 80% 80%, rgba(92,61,30,0.25) 0%, transparent 45%);
+}
+.hero-cc-img {
+  position: absolute;
+  left: -3%;
+  bottom: -8%;
+  width: 65%;
+  opacity: 0.9;
+  filter: drop-shadow(10px -8px 28px rgba(200,146,42,0.18));
+  transform: rotate(4deg);
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), opacity 0.4s;
+  pointer-events: none;
+}
+.hero-cc:hover .hero-cc-img { transform: rotate(2deg) scale(1.03) translateY(-6px); opacity: 1; }
+
+.hero-cc-content {
+  position: relative; z-index: 2;
+  padding: 52px 52px 48px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* ─── SCROLL CUE ─── */
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  opacity: 0.4;
+  animation: scrollbob 2.4s ease-in-out infinite;
+}
+@keyframes scrollbob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+.scroll-cue span { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #888; }
+.scroll-cue svg { width: 16px; height: 16px; }
+
+/* ─── SECTION CHROME ─── */
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--studio-muted);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 900;
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--studio-text);
+}
+.section-rule {
+  width: 40px; height: 2px;
+  background: var(--studio-muted);
+  margin: 20px 0;
+}
+
+/* ─── ABOUT ─── */
+#about {
+  background: var(--studio-mid);
+  padding: 100px 0;
+  border-top: 1px solid var(--studio-border);
+  border-bottom: 1px solid var(--studio-border);
+}
+.about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 64px;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-left { position: sticky; top: 100px; }
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--studio-border);
+  border: 1px solid var(--studio-border);
+  margin-top: 36px;
+}
+.about-stat {
+  background: var(--studio-dark);
+  padding: 20px 22px;
+}
+.about-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 36px; font-weight: 900;
+  color: var(--studio-text);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.about-stat-label {
+  font-size: 10.5px; font-weight: 500;
+  color: var(--studio-muted);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+.about-right { }
+.about-lead {
+  font-size: 18px; font-weight: 300;
+  line-height: 1.7;
+  color: rgba(232,228,220,0.85);
+  margin-bottom: 36px;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+.about-body {
+  font-size: 14px; line-height: 1.8;
+  color: var(--studio-muted);
+  margin-bottom: 20px;
+}
+.about-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--studio-border);
+  border: 1px solid var(--studio-border);
+  margin-top: 44px;
+}
+.about-pillar {
+  background: var(--studio-dark);
+  padding: 28px 28px;
+}
+.about-pillar-icon {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--studio-muted);
+  margin-bottom: 12px; display: block;
+}
+.about-pillar-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--studio-text);
+  margin-bottom: 8px;
+}
+.about-pillar-body {
+  font-size: 12.5px; line-height: 1.65;
+  color: var(--studio-muted);
+}
+
+/* ─── GAMES DETAIL ─── */
+#games {
+  padding: 100px 0;
+  border-bottom: 1px solid var(--studio-border);
+}
+.games-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
+/* AA Game Block */
+.game-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  padding: 72px 0;
+  border-bottom: 1px solid var(--studio-border);
+}
+.game-block:last-child { border-bottom: none; }
+.game-block.reverse { direction: rtl; }
+.game-block.reverse > * { direction: ltr; }
+
+.game-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.game-capsule {
+  width: 100%;
+  border-radius: 4px;
+  display: block;
+  filter: drop-shadow(0 16px 48px rgba(0,0,0,0.5));
+  position: relative;
+  z-index: 1;
+}
+.game-cards-fan {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  height: 220px;
+  margin-top: -60px;
+  z-index: 2;
+}
+.game-card-item {
+  width: 220px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.6));
+  transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), filter 0.35s, width 0.35s;
+  position: absolute;
+  transform-origin: bottom center;
+}
+.game-card-item:nth-child(1) { transform: rotate(-9deg) translateX(-130px) translateY(0px); z-index: 1; }
+.game-card-item:nth-child(2) { transform: rotate(-3deg) translateX(-38px) translateY(-8px); z-index: 3; }
+.game-card-item:nth-child(3) { transform: rotate(5deg) translateX(72px) translateY(-2px); z-index: 2; }
+.game-card-item:nth-child(4) { transform: rotate(12deg) translateX(168px) translateY(6px); z-index: 1; }
+
+.game-cards-fan:hover .game-card-item:nth-child(1) { transform: rotate(-13deg) translateX(-155px) translateY(-18px) scale(1.12); filter: drop-shadow(0 20px 36px rgba(0,0,0,0.7)); z-index: 2; }
+.game-cards-fan:hover .game-card-item:nth-child(2) { transform: rotate(-4deg) translateX(-44px) translateY(-26px) scale(1.18); filter: drop-shadow(0 24px 40px rgba(0,0,0,0.75)); z-index: 4; }
+.game-cards-fan:hover .game-card-item:nth-child(3) { transform: rotate(6deg) translateX(80px) translateY(-20px) scale(1.14); filter: drop-shadow(0 20px 36px rgba(0,0,0,0.7)); z-index: 3; }
+.game-cards-fan:hover .game-card-item:nth-child(4) { transform: rotate(14deg) translateX(188px) translateY(-12px) scale(1.1); filter: drop-shadow(0 18px 32px rgba(0,0,0,0.65)); z-index: 2; }
+
+.game-info { align-self: end; }
+.game-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.game-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 900; text-transform: uppercase;
+  line-height: 0.9; letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.game-subtitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.game-rule { width: 36px; height: 2px; margin-bottom: 20px; }
+.aa-rule { background: var(--aa-rust); }
+.cc-rule { background: var(--cc-gold); }
+.game-desc {
+  font-size: 14px; line-height: 1.75;
+  margin-bottom: 28px;
+}
+.game-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 32px; }
+.game-ctas { display: flex; gap: 12px; align-items: center; }
+
+/* AA colors */
+.aa-eyebrow { color: var(--aa-rust); }
+.aa-title { color: var(--aa-parchment); }
+.aa-subtitle { color: rgba(240,232,213,0.5); }
+.aa-desc { color: var(--studio-muted); }
+
+/* CC colors */
+.cc-eyebrow { color: var(--cc-gold); }
+.cc-title { color: var(--cc-warm); }
+.cc-subtitle { color: rgba(245,237,224,0.5); }
+.cc-desc { color: var(--studio-muted); }
+
+/* ─── MEDIA / GALLERY ─── */
+#media {
+  background: var(--studio-mid);
+  padding: 100px 0;
+  border-bottom: 1px solid var(--studio-border);
+}
+.media-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+.media-header {
+  margin-bottom: 52px;
+}
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.media-item {
+  overflow: hidden;
+  background: var(--studio-dark);
+  border: 1px solid var(--studio-border);
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.25s;
+}
+.media-item:hover { border-color: rgba(255,255,255,0.18); }
+.media-item.wide { grid-column: span 2; }
+.media-item.tall { grid-row: span 2; }
+.media-item img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.media-item:hover img { transform: scale(1.04); }
+.media-item-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 24px 18px 16px;
+  background: linear-gradient(to top, rgba(10,11,14,0.85) 0%, transparent 100%);
+  font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 500;
+  color: rgba(232,228,220,0.7);
+  opacity: 0;
+  transition: opacity 0.25s;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.media-item:hover .media-item-caption { opacity: 1; }
+.media-note {
+  margin-top: 20px;
+  font-size: 11px; letter-spacing: 0.06em;
+  color: rgba(232,228,220,0.25);
+  font-style: italic;
+  text-align: center;
+}
+
+/* ─── CONTACT ─── */
+#contact {
+  padding: 100px 0;
+}
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-left { }
+.contact-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--studio-border);
+  border: 1px solid var(--studio-border);
+  margin-top: 36px;
+}
+.contact-card {
+  background: var(--studio-mid);
+  padding: 22px 22px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s;
+}
+.contact-card:hover { background: rgba(255,255,255,0.04); }
+.contact-card-label {
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--studio-muted);
+  margin-bottom: 7px;
+}
+.contact-card-value {
+  font-size: 13px; font-weight: 400;
+  color: var(--studio-text);
+  word-break: break-all;
+}
+.contact-card-arrow {
+  margin-top: 12px;
+  font-size: 16px;
+  color: var(--studio-muted);
+  opacity: 0.6;
+}
+
+.contact-right { }
+.contact-form { margin-top: 0; }
+.form-row { margin-bottom: 14px; }
+.form-label {
+  display: block;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--studio-muted);
+  margin-bottom: 7px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--studio-mid);
+  border: 1px solid var(--studio-border);
+  color: var(--studio-text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(232,228,220,0.35);
+}
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-row-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-submit {
+  width: 100%;
+  padding: 13px 24px;
+  background: var(--studio-text); color: var(--studio-dark);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 4px;
+}
+.form-submit:hover { background: #fff; transform: translateY(-1px); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--studio-border);
+  background: var(--studio-dark);
+  padding: 40px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 14px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--studio-text);
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.footer-brand img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+.footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+.footer-links a {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--studio-muted); text-decoration: none; transition: color 0.2s;
+  font-weight: 500;
+}
+.footer-links a:hover { color: var(--studio-text); }
+.footer-copy {
+  font-size: 11px; color: rgba(232,228,220,0.22);
+  letter-spacing: 0.04em;
+}
+
+/* ─── ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* select arrow */
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: '▾';
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--studio-muted); pointer-events: none; font-size: 12px;
+}
+.form-select { padding-right: 36px; }
+option { background: #1a1d24; }
+
+/* CC specific game block bg */
+.cc-block-bg {
+  background: linear-gradient(100deg, #100d08 0%, #1a1208 100%);
+  border-radius: 4px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cc-block-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(200,146,42,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cc-block-logo {
+  width: 100%;
+  max-width: 380px;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 12px 36px rgba(200,146,42,0.22));
+  position: relative; z-index: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <img src="arachno-arena-logo.png" alt="Adgile Gaming" />
+    Adgile Gaming
+  </a>
+  <div class="nav-links">
+    <a href="#games">Arachno Arena</a>
+    <a href="#games">Critter Cache</a>
+    <a href="#about">About</a>
+    <a href="#media">Media</a>
+    <a href="#contact" class="nav-contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-divider"></div>
+
+  <!-- Arachno Arena -->
+  <div class="hero-aa">
+    <div class="hero-aa-radial"></div>
+    <div class="hero-aa-texture"></div>
+    <img class="hero-aa-img" src="assets/aa-vertical-capsule.png" alt="Arachno Arena" />
+    <div class="hero-aa-content">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="pulse-dot aa-dot"></span>
+          Flagship Title · In Active Development
+        </div>
+        <h1 class="hero-title">Arachno<br/>Arena</h1>
+        <div class="hero-tags">
+          <span class="hero-tag aa-tag">Deck Builder</span>
+          <span class="hero-tag aa-tag">Lane Battler</span>
+          <span class="hero-tag aa-tag">2D Strategy</span>
+          <span class="hero-tag aa-tag">iOS + Android Coming Soon</span>
+        </div>
+        <p class="hero-desc" style="color:rgba(42,31,14,0.95); font-weight:500;">A spider-themed deck-building strategy game built from the ground up for mobile — with a Steam release on the horizon. Build your deck. Control the web. Outlast every opponent.</p>
+      </div>
+      <div class="hero-ctas">
+        <a href="https://arachnoarena.com" target="_blank" class="btn-primary aa-btn-primary">Visit Game Site ↗</a>
+        <a href="#contact" class="btn-ghost aa-btn-ghost">Press Inquiries</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Critter Cache -->
+  <div class="hero-cc">
+    <div class="hero-cc-glow"></div>
+    <img class="hero-cc-img" src="crittercache-logo.png" alt="Critter Cache" />
+    <div class="hero-cc-content">
+      <div>
+        <div class="hero-eyebrow" style="justify-content:flex-end;">
+          Live Now · Web App + iOS Coming Soon
+          <span class="pulse-dot cc-dot"></span>
+        </div>
+        <h1 class="hero-title">Critter<br/>Cache</h1>
+        <div class="hero-tags" style="justify-content:flex-end;">
+          <span class="hero-tag cc-tag">Kids App</span>
+          <span class="hero-tag cc-tag">Family</span>
+          <span class="hero-tag cc-tag">Habit Builder</span>
+          <span class="hero-tag cc-tag">Web + Mobile</span>
+        </div>
+        <p class="hero-desc">Turn morning battles into adventures. Kids earn coins completing daily routines alongside their critter companion — parents stay in control with a PIN-gated admin.</p>
+      </div>
+      <div class="hero-ctas">
+        <a href="https://beta.crittercache.app" target="_blank" class="btn-primary cc-btn-primary">Open Web App ↗</a>
+        <a href="https://crittercache.app" target="_blank" class="btn-ghost cc-btn-ghost">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 3v10M4 9l4 4 4-4"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="reveal">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">Built Different.<br/>On Purpose.</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="about-stats reveal reveal-delay-1">
+        <div class="about-stat">
+          <div class="about-stat-num">2</div>
+          <div class="about-stat-label">Titles in Portfolio</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">25+</div>
+          <div class="about-stat-label">Years Creative Experience</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">Emmy★</div>
+          <div class="about-stat-label">Award-Winning Founder</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">NASH</div>
+          <div class="about-stat-label">Nashville, TN · Est. 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <p class="about-lead reveal">"The same instincts that shaped broadcast television now drive game design."</p>
+      <p class="about-body reveal reveal-delay-1">Adgile Gaming was founded by Aaron Goeglein — a National Emmy Award-winning video producer with 25+ years of storytelling experience. Small by choice, precise by design. Our focus is entirely on making exceptional games — not spreading thin across a portfolio of unfinished ideas.</p>
+      <p class="about-body reveal reveal-delay-2">We use agentic AI tools — Claude, Gemini, and custom pipelines — not to replace creativity, but to multiply it. A solo studio with the velocity of a team.</p>
+      <div class="about-pillars reveal reveal-delay-3">
+        <div class="about-pillar">
+          <span class="about-pillar-icon">01</span>
+          <div class="about-pillar-title">Craft-First Development</div>
+          <p class="about-pillar-body">Every system, mechanic, and card is designed with intention — not generated by committee or diluted by scope creep.</p>
+        </div>
+        <div class="about-pillar">
+          <span class="about-pillar-icon">02</span>
+          <div class="about-pillar-title">AI-Powered Workflows</div>
+          <p class="about-pillar-body">Agentic AI tools amplify creativity. A one-person studio with the output velocity of a team.</p>
+        </div>
+        <div class="about-pillar">
+          <span class="about-pillar-icon">03</span>
+          <div class="about-pillar-title">Mobile-First Strategy</div>
+          <p class="about-pillar-body">Built from the ground up for touch, then expanded to desktop. No ports. No compromises.</p>
+        </div>
+        <div class="about-pillar">
+          <span class="about-pillar-icon">04</span>
+          <div class="about-pillar-title">Range by Design</div>
+          <p class="about-pillar-body">From spider tactics to children's adventures — two very different games proving one studio's versatility.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES DETAIL -->
+<section id="games">
+  <div class="games-inner">
+
+    <!-- Arachno Arena -->
+    <div class="game-block reveal">
+      <div class="game-visual">
+        <img class="game-capsule" src="assets/aa-main-capsule.png" alt="Arachno Arena" style="margin-bottom: 0;" />
+        <div class="game-cards-fan">
+          <img class="game-card-item" src="assets/bold-jumping-spider.png" alt="Bold Jumping Spider" />
+          <img class="game-card-item" src="assets/western-black-widow.png" alt="Western Black Widow" />
+          <img class="game-card-item" src="assets/purple-gold-spider.png" alt="Purple Gold Jumping Spider" />
+          <img class="game-card-item" src="assets/brown-recluse.png" alt="Brown Recluse" />
+        </div>
+      </div>
+      <div class="game-info">
+        <div class="game-eyebrow aa-eyebrow">
+          <span class="pulse-dot aa-dot"></span>
+          In Active Development
+        </div>
+        <h2 class="game-title aa-title">Arachno<br/>Arena</h2>
+        <div class="game-subtitle aa-subtitle">Deck-Building Living Card Game</div>
+        <div class="game-rule aa-rule"></div>
+        <p class="game-desc aa-desc">Every card interaction is built for depth. Every system is built for replayability. Arachno Arena features real-world spider species as playable units — each with unique stats, abilities, and tactical roles.</p>
+        <p class="game-desc aa-desc">The meta evolves. The arena doesn't forgive. Designed from the ground up for mobile with a Steam release on the horizon.</p>
+        <div class="game-tags">
+          <span class="hero-tag aa-tag">Deck Builder</span>
+          <span class="hero-tag aa-tag">LCG</span>
+          <span class="hero-tag aa-tag">Mobile + Steam</span>
+          <span class="hero-tag aa-tag">Unity / C#</span>
+          <span class="hero-tag aa-tag">2D Strategy</span>
+        </div>
+        <div class="game-ctas">
+          <a href="https://arachnoarena.com" target="_blank" class="btn-primary aa-btn-primary">Game Website ↗</a>
+          <a href="#contact" class="btn-ghost aa-btn-ghost">Press Inquiries</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Critter Cache -->
+    <div class="game-block reverse reveal">
+      <div class="game-visual">
+        <div class="cc-block-bg" style="padding: 28px 28px 0;">
+          <img src="crittercache-logo.png" alt="Critter Cache" style="width:100%; display:block; margin:0 auto 16px; filter:drop-shadow(0 8px 24px rgba(200,146,42,0.25)); position:relative; z-index:1;" />
+          <img src="assets/cc-desktop.png" alt="Critter Cache — all critters" style="width:100%; display:block; border-radius:3px 3px 0 0; position:relative; z-index:1; margin-bottom:-4px;" />
+        </div>
+      </div>
+      <div class="game-info">
+        <div class="game-eyebrow cc-eyebrow">
+          <span class="pulse-dot cc-dot"></span>
+          Live Now · iOS Coming Soon
+        </div>
+        <h2 class="game-title cc-title">Critter<br/>Cache</h2>
+        <div class="game-subtitle cc-subtitle">Gamified Chore &amp; Habit Tracker</div>
+        <div class="game-rule cc-rule"></div>
+        <p class="game-desc cc-desc">Morning battles, begone. Critter Cache transforms the daily routine grind into a treasure-hunting quest. Kids earn coins for completing tasks, watching their critter companion cheer them on every step of the way.</p>
+        <p class="game-desc cc-desc">Parents stay in control through a PIN-gated admin. Batch-approve at bedtime, or tap along in real time. Free to start — no subscriptions, no data harvesting.</p>
+        <div class="game-tags">
+          <span class="hero-tag cc-tag">Kids App</span>
+          <span class="hero-tag cc-tag">Family</span>
+          <span class="hero-tag cc-tag">Habit Building</span>
+          <span class="hero-tag cc-tag">Web App</span>
+          <span class="hero-tag cc-tag">iOS Soon</span>
+        </div>
+        <div class="game-ctas">
+          <a href="https://crittercache.app" target="_blank" class="btn-primary cc-btn-primary">Play Now ↗</a>
+          <a href="https://beta.crittercache.app" target="_blank" class="btn-ghost cc-btn-ghost">Open Web App</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MEDIA -->
+<section id="media">
+  <div class="media-inner">
+    <div class="media-header reveal">
+      <div class="section-label">Arachno Arena · Early Development</div>
+      <h2 class="section-title">Card Art &amp; Screenshots</h2>
+      <div class="section-rule"></div>
+      <p style="font-size:13.5px; color:var(--studio-muted); line-height:1.65; max-width:520px;">Real-world spider species rendered as strategic playing cards. Visuals are early development and subject to change.</p>
+    </div>
+    <div class="media-grid">
+      <div class="media-item wide reveal">
+        <img src="assets/aa-main-capsule.png" alt="Arachno Arena Main Capsule" />
+        <div class="media-item-caption">Arachno Arena · Main Capsule</div>
+      </div>
+      <div class="media-item tall reveal reveal-delay-1">
+        <img src="assets/aa-vertical-capsule.png" alt="Arachno Arena Vertical" style="object-position: top;" />
+        <div class="media-item-caption">Vertical Capsule</div>
+      </div>
+      <div class="media-item reveal reveal-delay-2">
+        <img src="assets/bold-jumping-spider.png" alt="Bold Jumping Spider Card" />
+        <div class="media-item-caption">Bold Jumping Spider · Phidippus audax</div>
+      </div>
+      <div class="media-item reveal reveal-delay-3">
+        <img src="assets/western-black-widow.png" alt="Western Black Widow Card" />
+        <div class="media-item-caption">Western Black Widow · Latrodectus hesperus</div>
+      </div>
+      <div class="media-item reveal reveal-delay-1">
+        <img src="assets/purple-gold-spider.png" alt="Purple Gold Jumping Spider Card" />
+        <div class="media-item-caption">Purple-Gold Jumping Spider · Irura bidenticulata</div>
+      </div>
+      <div class="media-item reveal reveal-delay-2">
+        <img src="assets/brown-recluse.png" alt="Brown Recluse Card" />
+        <div class="media-item-caption">Brown Recluse · Loxosceles reclusa</div>
+      </div>
+    </div>
+    <p class="media-note">Arachno Arena visuals are early development · subject to change · © 2026 Adgile Gaming, LLC</p>
+
+    <!-- Critter Cache Media -->
+    <div class="media-header reveal" style="margin-top: 72px;">
+      <div class="section-label" style="color: var(--cc-gold);">Critter Cache · Available Now</div>
+      <h2 class="section-title">App Art &amp; Screenshots</h2>
+      <div class="section-rule" style="background: var(--cc-gold);"></div>
+    </div>
+    <div class="media-grid">
+      <div class="media-item wide reveal">
+        <img src="assets/cc-desktop.png" alt="Critter Cache — All Critters" />
+        <div class="media-item-caption">All Critters · Forest Scene</div>
+      </div>
+      <div class="media-item reveal reveal-delay-1">
+        <img src="assets/cc-square.png" alt="Critter Cache — Key Art" />
+        <div class="media-item-caption">Critter Cache · Key Art</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Business<br/>Inquiries</h2>
+      <div class="section-rule"></div>
+      <p style="font-size:14px; line-height:1.75; color:var(--studio-muted); margin-bottom:8px;">Press coverage, partnership opportunities, licensing, or anything business-related — reach out below.</p>
+      <div class="contact-cards">
+        <a href="mailto:info@adgilegaming.com" class="contact-card">
+          <div class="contact-card-label">General</div>
+          <div class="contact-card-value">info@adgilegaming.com</div>
+          <div class="contact-card-arrow">→</div>
+        </a>
+        <a href="mailto:press@adgilegaming.com" class="contact-card">
+          <div class="contact-card-label">Press</div>
+          <div class="contact-card-value">press@adgilegaming.com</div>
+          <div class="contact-card-arrow">→</div>
+        </a>
+        <a href="https://arachnoarena.com" target="_blank" class="contact-card">
+          <div class="contact-card-label">Arachno Arena</div>
+          <div class="contact-card-value">arachnoarena.com ↗</div>
+          <div class="contact-card-arrow">→</div>
+        </a>
+        <a href="https://crittercache.app" target="_blank" class="contact-card">
+          <div class="contact-card-label">Critter Cache</div>
+          <div class="contact-card-value">crittercache.app ↗</div>
+          <div class="contact-card-arrow">→</div>
+        </a>
+        <a href="https://aarongoeglein.com" target="_blank" class="contact-card" style="grid-column: span 2;">
+          <div class="contact-card-label">Founder</div>
+          <div class="contact-card-value">aarongoeglein.com ↗</div>
+          <div class="contact-card-arrow">→</div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right reveal reveal-delay-2">
+      <div class="section-label">Send a Message</div>
+      <h2 class="section-title" style="font-size:clamp(28px,3vw,40px);">Drop Us<br/>a Line</h2>
+      <div class="section-rule"></div>
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row-two">
+          <div class="form-row">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-input" placeholder="Your name" required />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Inquiry Type</label>
+          <div class="select-wrap">
+            <select name="type" class="form-select form-input">
+              <option value="">Select type...</option>
+              <option>Press / Media</option>
+              <option>Partnership</option>
+              <option>Licensing</option>
+              <option>General</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Regarding</label>
+          <div class="select-wrap">
+            <select name="game" class="form-select form-input">
+              <option value="">Select title...</option>
+              <option>Arachno Arena</option>
+              <option>Critter Cache</option>
+              <option>Adgile Gaming (Studio)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Message</label>
+          <textarea name="message" class="form-input form-textarea" placeholder="Tell us about your inquiry..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-brand">
+    <img src="arachno-arena-logo.png" alt="Adgile Gaming" />
+    Adgile Gaming, LLC
+  </a>
+  <div class="footer-links">
+    <a href="https://arachnoarena.com" target="_blank">Arachno Arena ↗</a>
+    <a href="https://crittercache.app" target="_blank">Critter Cache ↗</a>
+    <a href="https://beta.crittercache.app" target="_blank">Critter Cache App ↗</a>
+    <a href="https://aarongoeglein.com" target="_blank">Aaron Goeglein ↗</a>
+    <a href="mailto:info@adgilegaming.com">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Adgile Gaming, LLC · Nashville, TN</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav active state on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'var(--studio-text)'
+      : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
