@@ -722,6 +722,164 @@ option { background: #1a1d24; }
   filter: drop-shadow(0 12px 36px rgba(200,146,42,0.22));
   position: relative; z-index: 1;
 }
+
+/* ─── HAMBURGER ─── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  padding: 4px;
+  background: none; border: none;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--studio-text);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 58px; left: 0; right: 0;
+  background: rgba(10,11,14,0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--studio-border);
+  z-index: 99;
+  flex-direction: column;
+  padding: 16px 0 24px;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  padding: 14px 32px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--studio-muted); text-decoration: none;
+  border-bottom: 1px solid var(--studio-border);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-mobile-menu a:last-child { border-bottom: none; }
+.nav-mobile-menu a:hover { color: var(--studio-text); background: rgba(255,255,255,0.03); }
+.nav-mobile-menu a.mobile-cta {
+  margin: 12px 32px 0;
+  border: 1px solid rgba(232,228,220,0.18);
+  text-align: center;
+  color: var(--studio-text);
+  border-bottom: 1px solid rgba(232,228,220,0.18);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .about-inner { grid-template-columns: 1fr; gap: 48px; padding: 0 40px; }
+  .about-left { position: static; }
+  .games-inner { padding: 0 40px; }
+  .game-block { gap: 40px; }
+  .contact-inner { padding: 0 40px; gap: 48px; }
+  .media-inner { padding: 0 40px; }
+  footer { padding: 32px 40px; }
+}
+
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero — stack vertically */
+  #hero {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .hero-divider { display: none; }
+  .hero-aa, .hero-cc { min-height: 70vh; }
+  .hero-aa-content, .hero-cc-content {
+    padding: 40px 28px 36px;
+  }
+  .hero-cc-content { align-items: flex-start; text-align: left; }
+  .hero-cc .hero-eyebrow { justify-content: flex-start; }
+  .hero-cc .hero-tags { justify-content: flex-start; }
+  .hero-cc .hero-ctas { align-items: flex-start; }
+  .hero-cc .hero-desc { text-align: left; }
+  .hero-title { font-size: clamp(52px, 14vw, 80px); }
+  .hero-aa-img { width: 55%; right: -4%; bottom: -4%; }
+  .hero-cc-img { width: 55%; }
+  .scroll-cue { display: none; }
+
+  /* About */
+  #about { padding: 64px 0; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+  .about-left { position: static; }
+  .about-lead { font-size: 16px; }
+
+  /* Games */
+  #games { padding: 64px 0; }
+  .games-inner { padding: 0 24px; }
+  .game-block {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 0;
+  }
+  .game-block.reverse { direction: ltr; }
+  .game-info { align-self: auto; }
+  .game-cards-fan {
+    height: 160px;
+    margin-top: -40px;
+  }
+  .game-card-item { width: 150px; }
+  .game-card-item:nth-child(1) { transform: rotate(-9deg) translateX(-88px) translateY(0px); }
+  .game-card-item:nth-child(2) { transform: rotate(-3deg) translateX(-26px) translateY(-6px); }
+  .game-card-item:nth-child(3) { transform: rotate(5deg) translateX(48px) translateY(-2px); }
+  .game-card-item:nth-child(4) { transform: rotate(12deg) translateX(112px) translateY(4px); }
+
+  /* Media */
+  #media { padding: 64px 0; }
+  .media-inner { padding: 0 24px; }
+  .media-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .media-item.wide { grid-column: span 2; }
+  .media-item.tall { grid-row: span 1; }
+
+  /* Contact */
+  #contact { padding: 64px 0; }
+  .contact-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 0 24px;
+  }
+  .form-row-two { grid-template-columns: 1fr; }
+
+  /* Footer */
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px;
+    gap: 20px;
+  }
+  .footer-links { gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .hero-aa, .hero-cc { min-height: 80vh; }
+  .hero-aa-content, .hero-cc-content { padding: 32px 20px 28px; }
+  .hero-title { font-size: clamp(44px, 16vw, 64px); }
+  .hero-desc { font-size: 13px; }
+  .hero-aa-img { width: 60%; right: -6%; }
+  .media-grid { grid-template-columns: 1fr; }
+  .media-item.wide { grid-column: span 1; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .about-pillars { grid-template-columns: 1fr; }
+  .contact-cards { grid-template-columns: 1fr; }
+  .contact-card[style*="span 2"] { grid-column: span 1; }
+  .game-ctas { flex-direction: column; align-items: flex-start; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -739,7 +897,18 @@ option { background: #1a1d24; }
     <a href="#media">Media</a>
     <a href="#contact" class="nav-contact">Contact</a>
   </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="#games" class="mobile-link">Arachno Arena</a>
+  <a href="#games" class="mobile-link">Critter Cache</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#media" class="mobile-link">Media</a>
+  <a href="#contact" class="mobile-cta">Contact</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1095,6 +1264,21 @@ option { background: #1a1d24; }
 </footer>
 
 <script>
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+// Close on link tap
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
